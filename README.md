@@ -6,14 +6,12 @@ The goal of the "Simple Shell Project" is to learn how to build a simpler versio
 
 | Compilation | Testing |
 |-------------|---------|
-|When the program is compiled, it will functions as the shell terminal. \
-To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c | \
-The shell should work like this |
+|When the program is compiled, it will functions as the shell terminal. To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c
+|The shell should work like this |
 | |-------|-----------|
 | |in interactive mode| in non-interactive mode|
 | |-------------------|------------------------|
-| |`$ ./hsh\
-($) /bin/ls\
+| |`$ ./hsh \($) /bin/ls\
 hsh main.c shell.c\
 ($)\
 ($) exit\
