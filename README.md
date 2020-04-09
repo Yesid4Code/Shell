@@ -2,16 +2,15 @@
 
 A Unix Shell is a programam named command-line interpreter that provides a command line user interface for Unix-like operating systems that users employ to type commands. <a href="https://en.wikipedia.org/wiki/Unix_shell">Wikipedia</a>
 
-The goal of the "Simple Shell Project" is to learn how to build a simpler version of a "command-line interpreter" (Unix shell) using the programming language "C".
 
-| Compilation | Testing |
-|-------------|---------|
-|When the program is compiled, it will functions as the shell terminal. To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c
-|The shell should work like this |
-| |-------|-----------|
-| |in interactive mode| in non-interactive mode|
-| |-------------------|------------------------|
-| |`$ ./hsh \($) /bin/ls\
+The goal of the "Simple Shell Project" is to learn how to build a simpler version of a "command-line interpreter" (Unix shell) using the programming language "C".
+## Compilation
+When the program is compiled, it will functions as the shell terminal. To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c
+
+## Testing
+|in interactive mode| in non-interactive mode|
+|-------------------|------------------------|
+|`$ ./hsh \($) /bin/ls\
 hsh main.c shell.c\
 ($)\
 ($) exit\
