@@ -1,1 +1,1 @@
-<img source=Simple_Shell_Proyect>
+<img src="Simple_Shell_Proyect" width "100%" height="200">
