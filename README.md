@@ -6,27 +6,28 @@ The goal of the "Simple Shell Project" is to learn how to build a simpler versio
 
 | Compilation | Testing |
 |-------------|---------|
-|When the program is compiled, it will functions as the shell terminal.
-To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c | The shell should work like this | 
-||-------|-----------|
-||in interactive mode| in non-interactive mode|
-||-------------------|------------------------|
-||`$ ./hsh
-($) /bin/ls
-hsh main.c shell.c
-($)
-($) exit
-$`
-| `$ echo "/bin/ls" | ./hsh
-hsh main.c shell.c test_ls_2
-$
-$ cat test_ls_2
-/bin/ls
-/bin/ls
-$
-$ cat test_ls_2 | ./hsh
-hsh main.c shell.c test_ls_2
-hsh main.c shell.c test_ls_2
+|When the program is compiled, it will functions as the shell terminal. \
+To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c | \
+The shell should work like this |
+| |-------|-----------|
+| |in interactive mode| in non-interactive mode|
+| |-------------------|------------------------|
+| |`$ ./hsh\
+($) /bin/ls\
+hsh main.c shell.c\
+($)\
+($) exit\
+$`\
+| `$ echo "/bin/ls" | ./hsh\
+hsh main.c shell.c test_ls_2\
+$\
+$ cat test_ls_2\
+/bin/ls\
+/bin/ls\
+$\
+$ cat test_ls_2 | ./hsh\
+hsh main.c shell.c test_ls_2\
+hsh main.c shell.c test_ls_2\
 $`|
 
 ## Project Restrictions.
