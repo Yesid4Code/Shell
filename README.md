@@ -10,15 +10,7 @@ When the program is compiled, it will functions as the shell terminal. To compil
 ## Testing
 |in interactive mode| in non-interactive mode|
 |-------------------|------------------------|
-|```
-$ ./hsh \($) /bin/ls
-hsh main.c shell.c
-($)
-($) exit
-$
-```|
-```
-$ echo "/bin/ls" | ./hsh\
+|``` $ ./hsh \($) /bin/ls \hsh main.c shell.c \($) \($) exit \$ ```| ``` $ echo "/bin/ls" \| ./hsh \
 hsh main.c shell.c test_ls_2\
 $
 $ cat test_ls_2
