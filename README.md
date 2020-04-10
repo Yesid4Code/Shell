@@ -11,13 +11,13 @@ When the program is compiled, it will functions as the shell terminal. To compil
 |in interactive mode| in non-interactive mode|
 |-------------------|------------------------|
 |```
-$ ./hsh \($) /bin/ls\
-hsh main.c shell.c\
+$ ./hsh \($) /bin/ls
+hsh main.c shell.c
 ($)
-($) exit\
+($) exit
 $
+```|
 ```
-|```
 $ echo "/bin/ls" | ./hsh\
 hsh main.c shell.c test_ls_2\
 $
