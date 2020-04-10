@@ -1,0 +1,102 @@
+.\"Manpage for Simple Shell by Holberton School
+.\"Contact on Twitter to correct errors:
+.\"Crispthofer Rincon [@CrispthoAlex] & Yesid Lopez [@Yesid4Code]
+.Dd 16/04/20               \" DATE
+.Dt man 1      \" Program name and manual section number
+.Os Ubuntu
+.TH man 1 "16 April 2020" "0.1" "simple_shell man page"
+.SH NAME                 \" Section Header - required - don't modify
+.Nm simple shell
+- simple command-line interpreter (simple shell)
+.SH SYNOPSIS             \" Section Header - required - don't modify
+.B ./sh: cisfun$_
+.Op Fl Ar command or command_path              \" []
+.Op Fl Ar command_flags     \" []
+.SH DESCRIPTION
+The hsh is a simple command interpreter that shall execute commands read from a command line string (standard input - type by the user), or a specified file.
+
+Pathname expansion shall ensure.
+
+.SH OPTIONS
+
+Not yet applied
+
+.SH OPERANDS
+
+The following operands shall be supported:
+
+A single '-' <hyphen> shall be treated as the first operand and then ignored.
+
+.B command_file
+
+If the pathname type by the user contains one or more '/' <slash> character, so read that file to be executed. 
+
+If pathname does not contain '/' <slash> character so shall attempt to read that file from the current working directory.
+
+If the file is not in the current working directory, the implementation may perform a search for an executable file using the value of PATH (environ variables)
+
+.SH STDIN
+    -----------------------------------------
+    Shall work like this in interactive mode:
+    -----------------------------------------
+
+    $ ./hsh
+    ($) /bin/ls
+    hsh main.c shell.c
+    ($)
+    ($) exit
+    $
+
+    -----------------------------
+    Also in non-interactive mode:
+    -----------------------------
+    $ echo "/bin/ls" | ./hsh
+    hsh main.c shell.c test_ls_2
+    $
+    $ cat test_ls_2
+    /bin/ls
+    /bin/ls
+    $
+    $ cat test_ls_2 | ./hsh
+    hsh main.c shell.c test_ls_2
+    hsh main.c shell.c test_ls_2
+    $
+
+.SH EXAMPLE
+
+.B Example 1
+
+   cisfun$ ls
+   Simple_Shell_Project.png man_1_simple_shell README.md
+   cisfun$
+
+.B Example 2
+
+   cisfun$ /bin/ls -la
+   total 92
+   drwxrwxr-x  3 vagrant vagrant  4096 Apr 10 07:55 .
+   drwxrwxr-x 12 vagrant vagrant  4096 Apr  9 21:28 ..
+   drwxrwxr-x  8 vagrant vagrant  4096 Apr 10 02:13 .git
+   -rwxrw-r--  1 vagrant vagrant  2513 Apr 10 07:55 man_1_simple_shell
+   -rw-rw-r--  1 vagrant vagrant  2162 Apr 10 02:06 README.md
+   -rw-rw-r--  1 vagrant vagrant 67313 Apr  9 21:28 Simple_Shell_Project.png
+   cisfun$
+
+.SH RETURN VALUES
+On success returns an integer number of symbols printed
+not counting \\0 for the string.
+
+On failure returns error number (-1).
+.SH NOTE
+This project follows the C coding style for Holberton School. (Betty)
+
+.SH SEE ALSO
+
+.I SH(1P)
+.I BASH(1)
+
+.SH BUGS
+Someone on way
+
+.SH AUTHOR
+Crispthofer Rincon Murrain, Yesid A. Lopez
