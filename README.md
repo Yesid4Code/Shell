@@ -49,12 +49,12 @@ For this project, only the following functions functions and system calls were a
 |fork (man 2 fork)|read (man 2 read)|wait4 (man 2 wait4)|
 |free (man 3 free)|readdir (man 3 readdir)|write (man 2 write)|
 
-## Contributors
+## :busts_in_silhouette: Contributors
 
-### Yesid A. López V.
+### :bust_in_silhouette: Yesid A. López V.
 * Twitter: <a href="https://twitter.com/Yesid4Code">@Yesid4Code</a>
 * Github:  [@Yesid4Code](https://github.com/Yesid4Code)
 
-### Crispthoper A. Rincon M.
+### :bust_in_silhouette: Crispthofer A. Rincon M.
 * Twitter: [@CrispthoAlex](https://twitter.com/CrispthoAlex)
 * Github:  <a href="https://github.com/CrispthoAlex">@CrispthoAlex</a>
