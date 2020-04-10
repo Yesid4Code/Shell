@@ -37,7 +37,7 @@ If the file is not in the current working directory, the implementation may perf
 
 .SH STDIN
     -----------------------------------------
-    Shall work like this in interactive mode:
+    Interactive mode:
     -----------------------------------------
 
     $ ./hsh
@@ -48,7 +48,7 @@ If the file is not in the current working directory, the implementation may perf
     $
 
     -----------------------------
-    Also in non-interactive mode:
+    Non-interactive mode:
     -----------------------------
     $ echo "/bin/ls" | ./hsh
     hsh main.c shell.c test_ls_2
