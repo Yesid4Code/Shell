@@ -8,6 +8,7 @@ The goal of the "Simple Shell Project" is to learn how to build a simpler versio
 When the program is compiled, it will functions as the shell terminal. To compile, you can use gcc -Wall -Werror -Wextra -pedantic *.c
 
 ## Testing
+The shell should work like this in interactive mode:
 ```
 $ ./hsh
 ($) /bin/ls
@@ -16,7 +17,7 @@ hsh main.c shell.c
 ($) exit
 $
 ```
-
+And also in non-interactive mode:
 ```
 $ echo "/bin/ls" | ./hsh
 hsh main.c shell.c test_ls_2
@@ -32,8 +33,11 @@ $
 ```
 
 ## Project Restrictions.
-
 For this project, only the following functions functions and system calls were allowed:
+|Functions and system calls allowed|
+|----|
+|access (man 2 access)|chdir (man 2 chdir)|close man 2 close|
+
 :computer::closed_lock_with_key:
 - access (man 2 access)
 - chdir (man 2 chdir)
