@@ -35,7 +35,7 @@ $
 ## Project Restrictions.
 For this project, only the following functions functions and system calls were allowed:
 |Functions and system calls allowed|
-|----|
+|----|----|----|
 |access (man 2 access)|chdir (man 2 chdir)|close man 2 close|
 
 :computer::closed_lock_with_key:
