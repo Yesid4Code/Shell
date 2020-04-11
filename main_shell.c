@@ -4,6 +4,9 @@
 
 /**
  * main - Read, Search and execute the input
+ * @argc: count arguments
+ * @argv: array of arguments
+ * @env: environ variable
  *
  * Return: Always 0 success
  */
@@ -41,19 +44,19 @@ int main(int argc, char *argv[], char **env)
 			printf("%s", input[i]);
 
 		for (; binpath[j] != '\0'; j++)
-                        printf("%s", binpath[j]);
+			printf("%s", binpath[j]);
 
 		/*// EXECUTE PHASE \\ */
 		exe_child = fork();
-                if (exe_child == 0)
-                {
-                        if (execve(input[0], input, NULL) == -1)
-                        {
-                                perror("Command not executed. Try again");
-                                exit(1);
-                        }
-                }
-                else
+		if (exe_child == 0)
+		{
+			if (execve(input[0], input, NULL) == -1)
+			{
+				perror("Command not executed. Try again");
+				exit(1);
+			}
+		}
+		else
 			wait(&status);
 	}
 	free(line);
