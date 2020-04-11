@@ -33,7 +33,7 @@ int main(int argc, char *argv[], char **env)
 			break;
 
 		input = get_input(line); /*receive the command type by the user */
-		printf("VERIFICANDO");
+		printf("VERIFICANDO\n");
 
 		/*// SEARCHING PATH PHASE \\ */
 		/*-----------------*/
@@ -41,10 +41,10 @@ int main(int argc, char *argv[], char **env)
 
 		i = 0, j = 0;
 		for (; input[i] != '\0'; i++)
-			printf("%s", input[i]);
+			printf("%s\n", input[i]);
 
 		for (; binpath[j] != '\0'; j++)
-			printf("%s", binpath[j]);
+			printf("%s\n", binpath[j]);
 
 		/*// EXECUTE PHASE \\ */
 		exe_child = fork();
