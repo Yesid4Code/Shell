@@ -2,6 +2,8 @@
 #include <stdio.h>
 /**
  * get_input - get input typing for the user
+ * @line: string type
+ *
  *
  * Return: Always 0 success
  */
@@ -9,8 +11,8 @@ char **get_input(char *line)
 {
 	char **argv;
 	char *tokens = NULL;/* containt each string typing */
-        char *limstr[1] = {" \t\n\r"};/* string delimited */
-        int i = 0;
+	char *limstr[1] = {" \t\n\r"};/* string delimited */
+	int i = 0;
 
 	tokens = strtok(line, *limstr);
 	i = 0;
@@ -29,18 +31,18 @@ char **get_input(char *line)
 
 /**
  * get_path - search path to execute
- *
+ * @env: environ variables
  * Return: Always 0 success
  */
 char **get_path(char **env)
 {
 	/*search path */
-        char *path_token1; /* path before =, environ*/
-        char *path_token2; /* path after =, environ*/
-        char *bin_path = NULL; /* Bin path of the executable */
+	char *path_token1; /* path before =, environ*/
+	char *path_token2; /* path after =, environ*/
+	char *bin_path = NULL; /* Bin path of the executable */
 	char **argv = NULL; /*array of bin paths */
 	char *limpath[2] = {"=:"};
-        int i;
+	int i;
 
 	i = 0;
 	while (env[i])
@@ -48,7 +50,7 @@ char **get_path(char **env)
 		path_token1 = strtok(env[i], limpath[0]);
 		path_token2 = strtok(NULL, limpath[0]);
 
-		if(strcmp(path_token1, "PATH") == 0)
+		if (strcmp(path_token1, "PATH") == 0)
 			break;/*path_token2 returns*/
 		i++;
 	}
