@@ -32,6 +32,8 @@ int main(int argc, char *argv[], char **env)
 		input = get_input(line); /*receive the command type by the user */
 		printf("VERIFICANDO");
 
+		/*// SEARCHING PATH PHASE \\ */
+		/*-----------------*/
 		binpath = get_path(env);
 
 		i = 0, j = 0;
@@ -41,6 +43,18 @@ int main(int argc, char *argv[], char **env)
 		for (; binpath[j] != '\0'; j++)
                         printf("%s", binpath[j]);
 
+		/*// EXECUTE PHASE \\ */
+		exe_child = fork();
+                if (exe_child == 0)
+                {
+                        if (execve(input[0], input, NULL) == -1)
+                        {
+                                perror("Command not executed. Try again");
+                                exit(1);
+                        }
+                }
+                else
+			wait(&status);
 	}
 	return (0);
 }
