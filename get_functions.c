@@ -9,24 +9,35 @@
  */
 char **get_input(char *line)
 {
-	char **argv;
+	char **argstr;/* pointer to return */
 	char *tokens = NULL;/* containt each string typing */
 	char *limstr[1] = {" \t\n\r"};/* string delimited */
 	int i = 0;
 
 	tokens = strtok(line, *limstr);
+
+	argstr = malloc(sizeof(char **));
+	if (!argstr)
+		return (NULL);
 	i = 0;
-	while (tokens != NULL && i < 50)/*token each string*/
+	while (tokens != NULL)/*token each string*/
 	{
-		argv[i] = tokens;
-		if (!strcmp("exit", argv[0]))
+		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);/*allocate each string*/
+		if (!argstr[i])
+			return (NULL);
+		argstr[i] = tokens;
+		if (!strcmp("exit", tokens))/* verified if first tokens == "exit" */
+		{
+			free(argstr[i]);
+			free(argstr);
 			exit(1);
+		}
 		tokens = strtok(NULL, *limstr);
+		printf("%s\n", argstr[i]);/* prueba de funcionamiento */
 		i++;
-		printf("%s\n", argv[0]);
 	}
-	argv[i] = NULL;
-	return (argv);
+	argstr[i] = NULL;
+	return (argstr);
 }
 
 /**
@@ -40,7 +51,7 @@ char **get_path(char **env)
 	char *path_token1; /* path before =, environ*/
 	char *path_token2; /* path after =, environ*/
 	char *bin_path = NULL; /* Bin path of the executable */
-	char **argv = NULL; /*array of bin paths */
+	char **argpath = NULL; /* array of bin paths to return */
 	char *limpath[2] = {"=:"};
 	int i;
 
@@ -49,23 +60,28 @@ char **get_path(char **env)
 	{
 		path_token1 = strtok(env[i], limpath[0]);
 		path_token2 = strtok(NULL, limpath[0]);
-
 		if (strcmp(path_token1, "PATH") == 0)
 			break;/*path_token2 returns*/
 		i++;
 	}
+	printf("%s\n", path_token2);
 
-	bin_path = strtok(path_token2, limpath[0]);
-	printf("%s", bin_path);
+	/*bin_path = strtok(path_token2, limpath[0]);*/
+	argpath = malloc(sizeof(char **));
+	if (!argpath)
+		return (NULL);
 	i = 0;
-	/* concatenar PATH con comando ingresado */
+	/* Falta concatenar PATH con comando ingresado */
 	while (bin_path != NULL)/*token each PATH*/
 	{
-		argv[i] = bin_path;
+		argpath[i] = malloc(sizeof(char) * strlen(bin_path) + 1);/*allocate each path*/
+                if (!argpath[i])
+                        return (NULL);
+		argpath[i] = bin_path;
 		bin_path = strtok(NULL, limpath[1]);
+		printf(" - %s\n", argpath[i - 1]);
 		i++;
 	}
-	printf(" - %s\n", argv[i - 1]);
-	argv[i] = NULL;
-	return (argv);
+	argpath[i] = NULL;
+	return (argpath);
 }
