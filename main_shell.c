@@ -24,7 +24,7 @@ int main(int argc, char *argv[], char **env)
 	{
 		printf("#cisfun$> ");/*prompt */
 
-/*// READING PHASE \\ */
+		/*// READING PHASE \\ */
 		read = getline(&line, &len, stdin);
 		if (read == -1)
 			break;
@@ -56,5 +56,6 @@ int main(int argc, char *argv[], char **env)
                 else
 			wait(&status);
 	}
+	free(line);
 	return (0);
 }
