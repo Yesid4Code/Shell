@@ -61,7 +61,7 @@ char **get_path(char **env)
 	{
 		path_token1 = strtok(env[i], limpath[0]);/*"PATH" before = */
 
-		path_token2 = malloc(sizeof(char) * strlen(bin_path) + 1);
+		path_token2 = malloc(sizeof(char) * 90);
 		path_token2 = strtok(NULL, limpath[0]); /**/
 
 
