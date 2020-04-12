@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char **env)
 	(void)argv;
 	char *line = NULL;
 	char **input; /* command typing by user */
-	/*char **binpath;  pointer to PATH*/
+	char **binpath; /* pointer to PATH*/
 	int i, j;
 	size_t len = 0;
 	ssize_t read;/*chars read by getline() */
@@ -37,7 +37,7 @@ int main(int argc, char *argv[], char **env)
 
 		/*// SEARCHING PATH PHASE \\ */
 		/*-----------------*/
-                /* binpath = get_path(env);*/
+		binpath = get_path(env);
 
 		i = 0, j = 0;
 		for (; input[i] != '\0'; i++)
