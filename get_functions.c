@@ -27,7 +27,7 @@ char **get_input(char *line)
 		if (!argstr[i])
 			return (NULL);
 		argstr[i] = tokens;
-		if (!strcmp("exit", tokens))/* verified if first tokens == "exit" */
+		if (!strcmp("exit", argstr[0]))/* verified if first tokens == "exit" */
 		{
 			free(argstr[i]);
 			free(argstr);
@@ -54,20 +54,24 @@ char **get_path(char **env)
 	char *bin_path = NULL; /* Bin path of the executable */
 	char **argpath = NULL; /* array of bin paths to return */
 	char *limpath[2] = {"=:"};
-	int i;
+	int i = 0, j = 0;
 
-	i = 0;
+	printf("Hola prueba PATH\n");
 	while (env[i])
 	{
-		path_token1 = strtok(env[i], limpath[0]);
-		path_token2 = strtok(NULL, limpath[0]);
+		path_token1 = strtok(env[i], limpath[0]);/*"PATH" before = */
+
+		path_token2 = malloc(sizeof(char) * strlen(bin_path) + 1);
+		path_token2 = strtok(NULL, limpath[0]); /**/
+
+
 		if (strcmp(path_token1, "PATH") == 0)
 			break;/*path_token2 returns*/
 		i++;
 	}
-	printf("%s\n", path_token2);
+	printf("before malloc %s\n", path_token2);
 
-	/*bin_path = strtok(path_token2, limpath[0]);*/
+	bin_path = strtok(path_token2, limpath[1]);
 	argpath = malloc(sizeof(char **));
 	if (!argpath)
 		return (NULL);
@@ -78,11 +82,17 @@ char **get_path(char **env)
 		/* allocate each path*/
 		argpath[i] = malloc(sizeof(char) * strlen(bin_path) + 1);
                 if (!argpath[i])
+		{
+			for (j = 0; j <= i; j++)
+				free(argpath[j]);
+			free(argpath);
                         return (NULL);
+		}
+
 		argpath[i] = bin_path;
 		bin_path = strtok(NULL, limpath[1]);
-		printf(" - %s\n", argpath[i - 1]);
 		i++;
+		printf(" - %s\n", argpath[i - 1]);
 	}
 	argpath[i] = NULL;
 	return (argpath);
