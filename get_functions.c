@@ -57,24 +57,25 @@ char *get_environ(char *envar)
 			return (environ[i] + strlen(envar) + 1);
 		i++;
 	}
+	return (NULL);
 }
 
 /**
- * get_path - search path to execute
- * @env: environ variables
+ * get_path - get subdirecotires
  * Return: Always 0 success
  */
-char **get_path(char **env)
+char **get_path()
 {
-	/*search path */
+	/* search path */
 	char *path, **argpath = malloc(sizeof(char *) * 64);
+	char *path_token;
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
 
 	path = strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	path_token = strtok(path, limpath[0]);
 
-	printf("Hola prueba PATH\n", path_token);
+	printf("Hola prueba PATH: %s\n", path_token);
 	while (path_token != NULL)
 	{
 		/* allocate each path*/
@@ -90,7 +91,7 @@ char **get_path(char **env)
 		path_token = strtok(NULL, limpath[0]);
 		i++;
 	}
-	printf("before add NULL\N");
+	printf("before add NULL\n");
 	argpath[i] = NULL;
 	return (argpath);
 }
