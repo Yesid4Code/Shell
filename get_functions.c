@@ -56,6 +56,7 @@ char *get_environ(char *envar)
 			return (environ[i] + strlen(envar) + 1);
 		i++;
 	}
+	return (NULL);
 }
 
 
