@@ -6,7 +6,6 @@
  * main - Read, Search and execute the input
  * @argc: count arguments
  * @argv: array of arguments
- * @env: environ variable
  *
  * Return: Always 0 success
  */
@@ -15,11 +14,10 @@ int main(int argc, char *argv[])
 	char *line = NULL;
 	char **input; /* command typing by user */
 	char **binpath; /* pointer to PATH*/
-	int i, j;
 	size_t len = 0;
 	ssize_t read;/*chars read by getline() */
 	int exe_child; /*value return by execve*/
-	int status; /*status return*/
+	/*int i, j;*/
 	(void)argc;
 	(void)argv;
 
@@ -37,6 +35,7 @@ int main(int argc, char *argv[])
 		/*// SEARCHING PATH PHASE \\ */
 		/*-----------------*/
 		binpath = get_path();
+
 		/*// EXECUTE PHASE \\ */
 		exe_child = fork();
 		if (exe_child == 0)
