@@ -22,21 +22,19 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		printf("#cisfun$> ");/*prompt */
+		printf("#cisfun$ ");/*prompt */
 
 		/*// READING PHASE \\ */
 		read = getline(&line, &len, stdin);
 		if (read == -1)
 			break;
 		input = get_input(line); /*receive the command type by the user*/
-
 		/*// SEARCHING PATH PHASE \\ */
-		/*-----------------*/
 		if (line[0] != '/')
 		{
 			binpath = malloc(sizeof(char *) * 64);
 			if (!binpath)
-				exit(EXIT_FAILURE);
+				free(binpath), exit(EXIT_FAILURE);
 			binpath = get_path();
 
 			for (i = 0; binpath[i] != NULL; i++)/*prueba de salida*/
@@ -47,24 +45,19 @@ int main(int argc, char *argv[])
 			{	/*concatenate the strings*/
 				fullpath = strdup(strcat(binpath[i], input[0]));
 				/*exists or can exe?*/
-				printf("%s\n", fullpath);/* prueba */
-				if ((stat(fullpath, &fpath) == 0))/* path valid? */
+				if ((stat(fullpath, &fpath) == 0))
 				{
 					input[0] = fullpath;
 					break;
 				}
 				printf("Value stat --> %d\n", stat(fullpath, &fpath));/*prueba*/
 				i++;
-				printf("binpath = %s\n", binpath[i]);/*prueba*/
 			}
 			execute(input); /*// EXECUTE PHASE \\ */
 		}
 		else
 			execute(input);
-
+		free(line), free(input), free(binpath); free(fullpath);
 	}
-	free(line);
-	free(input);
-	free(binpath);
 	return (0);
 }
