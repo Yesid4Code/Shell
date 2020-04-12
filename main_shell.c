@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		printf("#cisfun$ ");/*prompt */
-
 		/*// READING PHASE \\ */
 		read = getline(&line, &len, stdin);
 		if (read == -1)
@@ -32,14 +31,9 @@ int main(int argc, char *argv[])
 		/*// SEARCHING PATH PHASE \\ */
 		if (line[0] != '/')
 		{
-			binpath = malloc(sizeof(char *) * 64);
+			binpath = get_path();
 			if (!binpath)
 				free(binpath), exit(EXIT_FAILURE);
-			binpath = get_path();
-
-			for (i = 0; binpath[i] != NULL; i++)/*prueba de salida*/
-				printf("binpath = %s\n", binpath[i]);
-
 			i = 0;
 			while (binpath[i] != NULL)
 			{	/*concatenate the strings*/
@@ -50,7 +44,6 @@ int main(int argc, char *argv[])
 					input[0] = fullpath;
 					break;
 				}
-				printf("Value stat --> %d\n", stat(fullpath, &fpath));/*prueba*/
 				i++;
 			}
 			execute(input); /*// EXECUTE PHASE \\ */
