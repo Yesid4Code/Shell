@@ -62,6 +62,8 @@ char *get_environ(char *envar)
 
 /**
  * get_path - get subdirectories
+ *
+ *
  * Return: Always 0 success
  */
 char **get_path()
@@ -85,6 +87,7 @@ char **get_path()
 		{
 			for (j = 0; j <= i; j++)
 				free(argpath[j]);
+			free(path_token);
 			free(argpath);
 			return (NULL);
 		}
@@ -94,7 +97,7 @@ char **get_path()
 		i++;
 	}
 	printf("before add NULL\n");
+	printf("argpath[%d]= %s\n", i,argpath[i]) ;
 	argpath[i] = NULL;
-
 	return (argpath);
 }
