@@ -16,7 +16,7 @@ char **get_input(char *line)
 
 	tokens = strtok(line, *limstr);
 
-	argstr = malloc(sizeof(char **));
+	argstr = malloc(sizeof(char *));
 	if (!argstr)
 		return (NULL);
 	i = 0;
@@ -61,22 +61,23 @@ char *get_environ(char *envar)
 }
 
 /**
- * get_path - get subdirecotires
+ * get_path - get subdirectories
  * Return: Always 0 success
  */
 char **get_path()
 {
 	/* search path */
-	char *path, **argpath = malloc(sizeof(char *) * 64);
+	char *path, **argpath = malloc(sizeof(char *) * 64);/*store 7 positions*/
 	char *path_token;
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
 
 	path = strdup(get_environ("PATH")); /* pointer to the copy of path*/
-	path_token = strtok(path, limpath[0]);
+	path_token = strdup(strtok(path, limpath[0]));/*duplicate path*/
 
 	printf("Hola prueba PATH: %s\n", path_token);
-	while (path_token != NULL)
+	i = 0;
+	while (path_token != NULL && i < 7)/*My hardcore to work excellent*/
 	{
 		/* allocate each path*/
 		argpath[i] = malloc(sizeof(char) * strlen(path_token) + 2);/* "/\0" */
@@ -87,11 +88,13 @@ char **get_path()
 			free(argpath);
 			return (NULL);
 		}
-		argpath[i] = strcat(path_token, '/';
-		path_token = strtok(NULL, limpath[0]);
+		argpath[i] = strdup(strcat(path_token, "/"));
+		path_token = strdup(strtok(NULL, limpath[0]));
+		printf("argpath[%d] = %s\n", i, argpath[i]);/*prueba salida*/
 		i++;
 	}
 	printf("before add NULL\n");
 	argpath[i] = NULL;
+
 	return (argpath);
 }
