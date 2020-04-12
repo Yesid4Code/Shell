@@ -99,13 +99,3 @@ char **get_path()
 	argpath[i] = NULL, free(path_token), free(path);/*free paths var*/
 	return (argpath);
 }
-/**
- * pathtoexecute - concate
- *
- *
- * Return: Always 0 success
- */
-char *pathtoexecute(char **argpath)
-{
-	(void);
-}
