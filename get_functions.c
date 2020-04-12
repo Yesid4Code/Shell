@@ -36,7 +36,6 @@ char **get_input(char *line)
 			exit(EXIT_SUCCESS);
 		}
 		tokens = strtok(NULL, *limstr);
-		printf("%s\n", argstr[i]);/* prueba de funcionamiento */
 		i++;
 	}
 	argstr[i] = NULL;
@@ -71,32 +70,32 @@ char *get_environ(char *envar)
 char **get_path()
 {
 	/* search path */
-	char *path, **argpath = malloc(sizeof(char *) * 64);/*store 7 positions*/
-	char *path_token;
+	char *path = NULL, **argpath = malloc(sizeof(char *) * 64);/*store 7 positions*/
+	char *path_token = NULL;
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
 
 	path = strdup(get_environ("PATH")); /* pointer to the copy of path*/
-	path_token = strdup(strtok(path, limpath[0]));/*duplicate path*/
-
-	while (path_token != NULL && i < 7)/*My hardcore to work excellent*/
+	if (!path)
 	{
-		/* allocate each path*/
-		argpath[i] = malloc(sizeof(char) * strlen(path_token) + 2);/* "/\0" */
+		free(path), free(argpath);
+		return(NULL);
+	}
+	path_token = strtok(path, limpath[0]);/*duplicate path*/
+
+	while (path_token != NULL && i < 8)/*My hardcore to work excellent*/
+	{
+		argpath[i] = strdup(path_token);
 		if (!argpath[i])
 		{
-			for (j = i; j >= 0; j--)
+			for(j = i; j >= 0; j--)
 				free(argpath[j]);
-			free(argpath), free(path_token), free(path);
-			return (NULL);
+			free(argpath);
 		}
-		printf("%s :\n", path_token);
-		argpath[i] = strdup(strcat(path_token, "/"));
-		path_token = strdup(strtok(NULL, limpath[0]));
+		strcat(argpath[i], "/"), path_token = strtok(NULL, ":");
 		i++;
 	}
-	printf("argpath[%d]= %s\n", i, argpath[i]);
-	argpath[i] = NULL, free(path_token), free(path);/*free paths var*/
+	argpath[i] = NULL, free(path_token), free(path); /*free paths var*/
 	return (argpath);
 }
 
@@ -106,7 +105,4 @@ char **get_path()
  *
  * Return: Always 0 success
  */
-char *pathtoexecute(char **argpath)
-{
-	(void);
-}
+/*void *pathtoexecute(char **argpath)*/
