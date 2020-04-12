@@ -52,7 +52,7 @@ char *get_environ(char *envar)
 
 	while (environ[i])
 	{
-		if(strncmp(environ[i], envar, strlen(envar)) == 0)
+		if (strncmp(environ[i], envar, strlen(envar)) == 0)
 			/*return pointer to subdir*/
 			return (environ[i] + strlen(envar) + 1);
 		i++;
@@ -79,14 +79,14 @@ char **get_path()
 	while (path_token != NULL)
 	{
 		/* allocate each path*/
-                argpath[i] = malloc(sizeof(char) * strlen(path_token) + 1);
-                if (!argpath[i])
-                {
-                        for (j = 0; j <= i; j++)
-                                free(argpath[j]);
-                        free(argpath);
-                        return (NULL);
-                }
+		argpath[i] = malloc(sizeof(char) * strlen(path_token) + 1);
+		if (!argpath[i])
+		{
+			for (j = 0; j <= i; j++)
+				free(argpath[j]);
+			free(argpath);
+			return (NULL);
+		}
 		argpath[i] = path_token;
 		path_token = strtok(NULL, limpath[0]);
 		i++;
