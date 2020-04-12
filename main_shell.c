@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 		}
 		else
 			execute(input);
-		free(line), free(input), free(binpath); free(fullpath);
+		free(input), free(binpath); free(fullpath);
 	}
 	return (0);
 }
