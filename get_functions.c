@@ -40,6 +40,24 @@ char **get_input(char *line)
 	argstr[i] = NULL;
 	return (argstr);
 }
+/**
+ * get_environ - search environ
+ * @envar: environ
+ * Return: Always 0 success
+ */
+char *get_environ(char *envar)
+{
+	int i = 0;
+
+	while (environ[i])
+	{
+		if(strncmp(environ[i], envar, strlen(envar)) == 0)
+			/*return pointer to subdir*/
+			return (environ[i] + strlen(envar) + 1);
+		i++;
+	}
+}
+
 
 /**
  * get_path - search path to execute
@@ -61,12 +79,10 @@ char **get_path(char **env)
 	{
 		path_token1 = strtok(env[i], limpath[0]);/*"PATH" before = */
 
-		path_token2 = malloc(sizeof(char) * 90);
-		path_token2 = strtok(NULL, limpath[0]); /**/
-
+		path_token2 = strtok(NULL, limpath[0]); /* Contain $PATH */
 
 		if (strcmp(path_token1, "PATH") == 0)
-			break;/*path_token2 returns*/
+			break;/* path_token2 returns */
 		i++;
 	}
 	printf("before malloc %s\n", path_token2);
