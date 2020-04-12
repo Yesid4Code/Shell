@@ -10,10 +10,8 @@
  *
  * Return: Always 0 success
  */
-int main(int argc, char *argv[], char **env)
+int main(int argc, char *argv[])
 {
-	(void)argc;
-	(void)argv;
 	char *line = NULL;
 	char **input; /* command typing by user */
 	char **binpath; /* pointer to PATH*/
@@ -22,6 +20,8 @@ int main(int argc, char *argv[], char **env)
 	ssize_t read;/*chars read by getline() */
 	int exe_child; /*value return by execve*/
 	int status; /*status return*/
+	(void)argc;
+	(void)argv;
 
 	while (1)
 	{
@@ -37,7 +37,7 @@ int main(int argc, char *argv[], char **env)
 
 		/*// SEARCHING PATH PHASE \\ */
 		/*-----------------*/
-		binpath = get_path(env);
+		binpath = get_path();
 
 		i = 0, j = 0;
 		for (; input[i] != '\0'; i++)
