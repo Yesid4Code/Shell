@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 		{
 			binpath = get_path();
 			if (!binpath)
-				free(binpath), exit(EXIT_FAILURE);
+				free(binpath), free(input), exit(EXIT_FAILURE);
 			i = 0;
 			while (binpath[i] != NULL)
 			{	/*concatenate the strings*/
