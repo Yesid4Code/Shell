@@ -22,7 +22,8 @@ char **get_input(char *line)
 	i = 0;
 	while (tokens != NULL)/*token each string*/
 	{
-		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);/*allocate each string*/
+		/* Allocate each string in argstr[i]*/
+		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);
 		if (!argstr[i])
 			return (NULL);
 		argstr[i] = tokens;
@@ -74,7 +75,8 @@ char **get_path(char **env)
 	/* Falta concatenar PATH con comando ingresado */
 	while (bin_path != NULL)/*token each PATH*/
 	{
-		argpath[i] = malloc(sizeof(char) * strlen(bin_path) + 1);/*allocate each path*/
+		/* allocate each path*/
+		argpath[i] = malloc(sizeof(char) * strlen(bin_path) + 1);
                 if (!argpath[i])
                         return (NULL);
 		argpath[i] = bin_path;
