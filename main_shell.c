@@ -32,20 +32,11 @@ int main(int argc, char *argv[])
 		if (read == -1)
 			break;
 
-		input = get_input(line); /*receive the command type by the user */
-		printf("VERIFICANDO\n");
+		input = get_input(line); /*receive the command type by the user*/
 
 		/*// SEARCHING PATH PHASE \\ */
 		/*-----------------*/
 		binpath = get_path();
-
-		i = 0, j = 0;
-		for (; input[i] != '\0'; i++)
-			printf("%s\n", input[i]);
-/*
-		for (; binpath[j] != '\0'; j++)
-			printf("%s\n", binpath[j]);
-*/
 		/*// EXECUTE PHASE \\ */
 		exe_child = fork();
 		if (exe_child == 0)
