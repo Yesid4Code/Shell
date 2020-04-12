@@ -20,6 +20,6 @@ void execute(char **binpath)
 			exit(EXIT_FAILURE);
 	}
 	else
-		while (wait(&status) != pid)
+		while (wait(&status) != exechild)
 		{}
 }
