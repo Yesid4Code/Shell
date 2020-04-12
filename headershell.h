@@ -11,7 +11,7 @@
 
 
 char **get_input(char *line);
-char **get_path(char **env);
+char **get_path();
 char *get_environ(char *envar);
 
 
