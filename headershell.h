@@ -3,6 +3,7 @@
 
 #define _GNU_SOURCE
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -13,7 +14,6 @@
 char **get_input(char *line);
 char **get_path();
 char *get_environ(char *envar);
-
-
+void execute(char **binpath);
 
 #endif
