@@ -40,6 +40,7 @@ char **get_input(char *line)
 	argstr[i] = NULL;
 	return (argstr);
 }
+
 /**
  * get_environ - search environ
  * @envar: environ
@@ -56,9 +57,7 @@ char *get_environ(char *envar)
 			return (environ[i] + strlen(envar) + 1);
 		i++;
 	}
-	return (NULL);
 }
-
 
 /**
  * get_path - search path to execute
@@ -68,49 +67,30 @@ char *get_environ(char *envar)
 char **get_path(char **env)
 {
 	/*search path */
-	char *path_token1; /* path before =, environ*/
-	char *path_token2; /* path after =, environ*/
-	char *bin_path = NULL; /* Bin path of the executable */
-	char **argpath = NULL; /* array of bin paths to return */
-	char *limpath[2] = {"=:"};
+	char *path, **argpath = malloc(sizeof(char *) * 64);
+	char *limpath[1] = {":"};
 	int i = 0, j = 0;
 
-	printf("Hola prueba PATH\n");
-	while (env[i])
-	{
-		path_token1 = strtok(env[i], limpath[0]);/*"PATH" before = */
+	path = strdup(get_environ("PATH")); /* pointer to the copy of path*/
+	path_token = strtok(path, limpath[0]);
 
-		path_token2 = strtok(NULL, limpath[0]); /* Contain $PATH */
-
-		if (strcmp(path_token1, "PATH") == 0)
-			break;/* path_token2 returns */
-		i++;
-	}
-	printf("before malloc %s\n", path_token2);
-
-	bin_path = strtok(path_token2, limpath[1]);
-	argpath = malloc(sizeof(char **));
-	if (!argpath)
-		return (NULL);
-	i = 0;
-	/* Falta concatenar PATH con comando ingresado */
-	while (bin_path != NULL)/*token each PATH*/
+	printf("Hola prueba PATH\n", path_token);
+	while (path_token != NULL)
 	{
 		/* allocate each path*/
-		argpath[i] = malloc(sizeof(char) * strlen(bin_path) + 1);
+                argpath[i] = malloc(sizeof(char) * strlen(path_token) + 1);
                 if (!argpath[i])
-		{
-			for (j = 0; j <= i; j++)
-				free(argpath[j]);
-			free(argpath);
+                {
+                        for (j = 0; j <= i; j++)
+                                free(argpath[j]);
+                        free(argpath);
                         return (NULL);
-		}
-
-		argpath[i] = bin_path;
-		bin_path = strtok(NULL, limpath[1]);
+                }
+		argpath[i] = path_token;
+		path_token = strtok(NULL, limpath[0]);
 		i++;
-		printf(" - %s\n", argpath[i - 1]);
 	}
+	printf("before add NULL\N");
 	argpath[i] = NULL;
 	return (argpath);
 }
