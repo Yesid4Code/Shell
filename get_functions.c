@@ -25,13 +25,15 @@ char **get_input(char *line)
 		/* Allocate each string in argstr[i]*/
 		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);
 		if (!argstr[i])
+		{
+			free(argstr[i]), free(argstr);
 			return (NULL);
+		}
 		argstr[i] = tokens;
 		if (!strcmp("exit", argstr[0]))/* verified if first tokens == "exit" */
 		{
-			free(argstr[i]);
-			free(argstr);
-			exit(1);
+			free(argstr[i]), free(argstr);
+			exit(EXIT_SUCCESS);
 		}
 		tokens = strtok(NULL, *limstr);
 		printf("%s\n", argstr[i]);/* prueba de funcionamiento */
@@ -77,27 +79,33 @@ char **get_path()
 	path = strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	path_token = strdup(strtok(path, limpath[0]));/*duplicate path*/
 
-	printf("Hola prueba PATH: %s\n", path_token);
-	i = 0;
 	while (path_token != NULL && i < 7)/*My hardcore to work excellent*/
 	{
 		/* allocate each path*/
 		argpath[i] = malloc(sizeof(char) * strlen(path_token) + 2);/* "/\0" */
 		if (!argpath[i])
 		{
-			for (j = 0; j <= i; j++)
+			for (j = i; j >= 0; j--)
 				free(argpath[j]);
-			free(path_token);
-			free(argpath);
+			free(argpath), free(path_token), free(path);
 			return (NULL);
 		}
+		printf("%s :\n", path_token);
 		argpath[i] = strdup(strcat(path_token, "/"));
 		path_token = strdup(strtok(NULL, limpath[0]));
-		printf("argpath[%d] = %s\n", i, argpath[i]);/*prueba salida*/
 		i++;
 	}
-	printf("before add NULL\n");
-	printf("argpath[%d]= %s\n", i,argpath[i]) ;
-	argpath[i] = NULL;
+	printf("argpath[%d]= %s\n", i, argpath[i]);
+	argpath[i] = NULL, free(path_token), free(path);/*free paths var*/
 	return (argpath);
+}
+/**
+ * pathtoexecute - concate
+ *
+ *
+ * Return: Always 0 success
+ */
+char *pathtoexecute(char **argpath)
+{
+	(void);
 }
