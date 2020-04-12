@@ -99,3 +99,14 @@ char **get_path()
 	argpath[i] = NULL, free(path_token), free(path);/*free paths var*/
 	return (argpath);
 }
+
+/**
+ * pathtoexecute - concate
+ * @argpath: array of environ var PATH
+ *
+ * Return: Always 0 success
+ */
+char *pathtoexecute(char **argpath)
+{
+	(void);
+}
