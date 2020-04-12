@@ -79,7 +79,7 @@ char **get_path()
 	while (path_token != NULL)
 	{
 		/* allocate each path*/
-		argpath[i] = malloc(sizeof(char) * strlen(path_token) + 1);
+		argpath[i] = malloc(sizeof(char) * strlen(path_token) + 2);/* "/\0" */
 		if (!argpath[i])
 		{
 			for (j = 0; j <= i; j++)
@@ -87,7 +87,7 @@ char **get_path()
 			free(argpath);
 			return (NULL);
 		}
-		argpath[i] = path_token;
+		argpath[i] = strcat(path_token, '/';
 		path_token = strtok(NULL, limpath[0]);
 		i++;
 	}
