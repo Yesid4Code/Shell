@@ -75,7 +75,8 @@ char *get_environ(char *envar)
 char **get_path()
 {
 	/* search path */
-	char *path = NULL, **argpath = malloc(sizeof(char *) * 64);/*store 7 positions*/
+	/*store 7 positions*/
+	char *path = NULL, **argpath = malloc(sizeof(char *) * 64);
 	char *path_token = NULL;
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
