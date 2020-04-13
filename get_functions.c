@@ -72,7 +72,8 @@ char *get_environ(char *envar)
 char **get_path()
 {
 	/* search path */
-	char *path = NULL, **argpath = malloc(sizeof(char *) * 64);/*store 7 positions*/
+	/*store 7 positions*/
+	char *path = NULL, **argpath = malloc(sizeof(char *) * 64);
 	char *path_token = NULL;
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
@@ -81,7 +82,7 @@ char **get_path()
 	if (!path)
 	{
 		free(path), free(argpath);
-		return(NULL);
+		return (NULL);
 	}
 	path_token = strtok(path, limpath[0]);/*duplicate path*/
 
@@ -90,7 +91,7 @@ char **get_path()
 		argpath[i] = _strdup(path_token);
 		if (!argpath[i])
 		{
-			for(j = i; j >= 0; j--)
+			for (j = i; j >= 0; j--)
 				free(argpath[j]);
 			free(argpath);
 		}
