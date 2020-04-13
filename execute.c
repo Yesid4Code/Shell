@@ -12,7 +12,7 @@ void execute(char **binpath)
 	int status;
 
 	exechild = fork();
-	if (exechild < 0)/*create a child procces? */
+	if (exechild < 0) /*create a child procces? */
 		exit(EXIT_FAILURE);
 	else if (exechild == 0)
 	{
