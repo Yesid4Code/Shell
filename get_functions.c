@@ -7,19 +7,20 @@
  *
  * Return: Always 0 success
  */
-char **get_input(char *line)
+char **get_input(char *li)
 {
 	char **argstr;/* pointer to return */
 	char *tokens = NULL;/* containt each string typing */
 	char *limstr[1] = {" \t\n\r"};/* string delimited */
 	int i = 0;
+	char *line = _strdup(li);
 
 	tokens = strtok(line, *limstr);
 
 	argstr = malloc(sizeof(char *));
 	if (!argstr)
 		return (NULL);
-	i = 0;
+
 	while (tokens != NULL)/*token each string*/
 	{
 		/* Allocate each string in argstr[i]*/
@@ -32,13 +33,14 @@ char **get_input(char *line)
 		argstr[i] = tokens;
 		if (!strcmp("exit", argstr[0]))/* verified if first tokens == "exit" */
 		{
-			free(argstr[i]), free(argstr);
+			free(argstr[i]), free(argstr), free(line);
 			exit(EXIT_SUCCESS);
 		}
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
 	argstr[i] = NULL;
+	free(line);
 	return (argstr);
 }
 
