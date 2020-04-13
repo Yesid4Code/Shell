@@ -34,7 +34,7 @@ char **get_input(char *line)
 		argstr[i] = tokens;
 		if (!strcmp("exit", argstr[0]))/* verified if first tokens == "exit" */
 		{
-			for (j = i; j >= 0; j++)
+			for (j = i; j >= 0; j--)
 				free(argstr[j]);
 			free(argstr);
 			exit(EXIT_SUCCESS);
