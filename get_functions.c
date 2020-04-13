@@ -7,13 +7,13 @@
  *
  * Return: Always 0 success
  */
-char **get_input(char *li)
+char **get_input(char *line)
 {
 	char **argstr;/* pointer to return */
 	char *tokens = NULL;/* containt each string typing */
 	char *limstr[1] = {" \t\n\r"};/* string delimited */
-	int i = 0;
-	char *line = _strdup(li);
+	int i = 0, j;
+	/*char *line = _strdup(li);*/
 
 	tokens = strtok(line, *limstr);
 
@@ -27,20 +27,23 @@ char **get_input(char *li)
 		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);
 		if (!argstr[i])
 		{
-			free(argstr[i]), free(argstr);
+			free(argstr[i]);
+			free(argstr);
 			return (NULL);
 		}
 		argstr[i] = tokens;
 		if (!strcmp("exit", argstr[0]))/* verified if first tokens == "exit" */
 		{
-			free(argstr[i]), free(argstr), free(line);
+			for (j = i; j >= 0; j++)
+				free(argstr[j]);
+			free(argstr);
 			exit(EXIT_SUCCESS);
 		}
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
 	argstr[i] = NULL;
-	free(line);
+	/*free(line);*/
 	return (argstr);
 }
 
@@ -81,7 +84,7 @@ char **get_path()
 	if (!path)
 	{
 		free(path), free(argpath);
-		return(NULL);
+		return (NULL);
 	}
 	path_token = strtok(path, limpath[0]);/*duplicate path*/
 
@@ -90,7 +93,7 @@ char **get_path()
 		argpath[i] = _strdup(path_token);
 		if (!argpath[i])
 		{
-			for(j = i; j >= 0; j--)
+			for (j = i; j >= 0; j--)
 				free(argpath[j]);
 			free(argpath);
 		}
