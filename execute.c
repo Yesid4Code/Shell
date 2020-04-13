@@ -17,7 +17,7 @@ void execute(char **binpath)
 	else if (exechild == 0)
 	{
 		if (execve(*binpath, binpath, NULL) == -1)
-			perror(*binpath);
+			perror(*binpath), free(binpath);
 	}
 	else
 		while (wait(&status) != exechild)
