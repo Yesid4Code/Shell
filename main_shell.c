@@ -9,13 +9,13 @@
  */
 int main(int argc, char *argv[])
 {
+	struct stat fpath;
 	char *line = NULL;
 	char **input; /* command typing by user */
 	char **binpath; /* pointer to PATH*/
 	size_t len = 0;
 	ssize_t read;/*chars read by getline() */
 	char *fullpath = NULL;
-	struct stat fpath;/*struct to concatenate*/
 	int i = 0;
 	(void)argc;
 	(void)argv;
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 			i = 0;
 			while (binpath[i] != NULL)
 			{	/*concatenate the strings*/
-				fullpath = strdup(strcat(binpath[i], input[0]));
+				fullpath = _strdup(strcat(binpath[i], input[0]));
 				/*exists or can exe?*/
 				if ((stat(fullpath, &fpath) == 0))
 				{
@@ -51,6 +51,8 @@ int main(int argc, char *argv[])
 		else
 			execute(input);
 	}
-	free(input), free(binpath), free(fullpath);
+	free(input);
+	free(binpath);
+	free(fullpath);
 	return (0);
 }
