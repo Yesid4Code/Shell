@@ -75,7 +75,7 @@ char **get_path()
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
 
-	path = strdup(get_environ("PATH")); /* pointer to the copy of path*/
+	path = _strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	if (!path)
 	{
 		free(path), free(argpath);
@@ -85,7 +85,7 @@ char **get_path()
 
 	while (path_token != NULL && i < 8)/*My hardcore to work excellent*/
 	{
-		argpath[i] = strdup(path_token);
+		argpath[i] = _strdup(path_token);
 		if (!argpath[i])
 		{
 			for(j = i; j >= 0; j--)
