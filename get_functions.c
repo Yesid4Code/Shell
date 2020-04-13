@@ -7,7 +7,7 @@
  *
  * Return: Always 0 success
  */
-char **get_input(char *line)
+char **get_input(char *line, int read)
 {
 	char **argstr;/* pointer to return */
 	char *tokens = NULL;/* containt each string typing */
@@ -32,11 +32,14 @@ char **get_input(char *line)
 			return (NULL);
 		}
 		argstr[i] = tokens;
-		if (!strcmp("exit", argstr[0]))/* verified if first tokens == "exit" */
+		/* Verified Ctrl+D was type or if first token == "exit"*/
+		if (read == EOF || !strcmp("exit", argstr[0]))
 		{
 			for (j = i; j >= 0; j--)
 				free(argstr[j]);
 			free(argstr);
+			if (read == EOF)
+				write(STDOUR_FILENE, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
 		tokens = strtok(NULL, *limstr);
