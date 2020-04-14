@@ -9,13 +9,11 @@
  */
 int main(int argc, char *argv[])
 {
-	char *line = NULL;
-	char **input; /*command typing by user */
+	char *line = NULL, **input; /*command typing by user */
 	size_t len = 0;
 	ssize_t read; /*chars read by getline() */
 
-	(void)argc;
-	(void)argv;
+	(void)argc, (void)argv;
 
 	while (1)
 	{
@@ -41,7 +39,7 @@ int main(int argc, char *argv[])
 			input[0] = _strdup(pathtoexecute(input));
 			if (!input[0])
 			{
-				free(input[0]), free(input);
+				free(input), free(line);
 				continue;
 			}
 			execute(input); /* ||EXECUTE PHASE|| */
@@ -49,6 +47,6 @@ int main(int argc, char *argv[])
 		else
 			execute(input);
 	}
-	free(input);
+	free(input), free(line);
 	return (0);
 }
