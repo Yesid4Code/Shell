@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	char **input; /* command typing by user */
 	size_t len = 0;
 	ssize_t read;/*chars read by getline() */
-	int i = 0;
+
 	(void)argc;
 	(void)argv;
 
@@ -22,14 +22,17 @@ int main(int argc, char *argv[])
 		write(STDOUT_FILENO,"#cisfun$ ", 9); /*printf("#cisfun$ ");*prompt */
 		/*// READING PHASE \\ */
 		read = getline(&line, &len, stdin);
-		if (read == -1)
-			break;/*should be a continue?*/
+		if (read == EOF)
+		{
+			write(STDOUT_FILENO,"\n", 1);
+			continue; /*should be a continue?*/
+		}
 		/* receive the command type by the user*/
-		input = get_input(line, read);
+		input = get_input(line);
 		if (input == NULL)
 		{
 			free(input);
-			continue;/*exit(EXIT_SUCCESS);*/
+			continue;
 		}
 		/*// SEARCHING PATH PHASE \\ */
 		if (line[0] != '/')
