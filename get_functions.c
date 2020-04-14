@@ -15,7 +15,19 @@ char **get_input(char *line)
 	int i = 0;/*, j;*/
 	/*char *line = _strdup(li);*/
 
+	/*printf("%s", line);*/
+	if (*line == '\n')
+		return (NULL);
 	tokens = strtok(line, *limstr);
+	/* Verified Ctrl+D was type or if first token == "exit"*/
+	/** if (read == EOF)
+	{
+		for (j = i; j >= 0; j--)
+			free(argstr[j]);
+		free(argstr);
+		if (read == EOF)
+			write(STDOUT_FILENO, "\n", 1);*/
+		/*exit(EXIT_SUCCESS); } */
 
 	argstr = malloc(sizeof(char *) * 64);
 	if (!argstr)
@@ -32,15 +44,6 @@ char **get_input(char *line)
 			return (NULL);
 		}
 		argstr[i] = tokens;
-		/* Verified Ctrl+D was type or if first token == "exit"*/
-		/** if (read == EOF)
-		{
-			for (j = i; j >= 0; j--)
-				free(argstr[j]);
-			free(argstr);
-			if (read == EOF)
-				write(STDOUT_FILENO, "\n", 1);*/
-			/*exit(EXIT_SUCCESS); } */
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
