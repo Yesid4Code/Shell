@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 
 
-char **get_input(char *line, ssize_t read);
+char **get_input(char *line);
 char **get_path();
 char *get_environ(char *envar);
 char *pathtoexecute(char **input);
