@@ -9,13 +9,10 @@
  */
 int main(int argc, char *argv[])
 {
-	struct stat fpath;
 	char *line = NULL;
 	char **input; /* command typing by user */
-	char **binpath; /* pointer to PATH BORRAR*/
 	size_t len = 0;
 	ssize_t read;/*chars read by getline() */
-	char *fullpath = NULL;
 	int i = 0;
 	(void)argc;
 	(void)argv;
@@ -37,23 +34,11 @@ int main(int argc, char *argv[])
 		/*// SEARCHING PATH PHASE \\ */
 		if (line[0] != '/')
 		{
-			binpath = get_path();
-			if (!binpath)
+			input[0] = _strdup(pathtoexecute(input));
+			if (!input[0])
 			{
-				free(binpath), free(input);/*exit(EXIT_FAILURE);*/
+				free(input[0]), free(input);
 				continue;
-			}
-			i = 0;
-			while (binpath[i] != NULL)
-			{	/*concatenate the strings*/
-				fullpath = _strdup(strcat(binpath[i], input[0]));
-				/*exists or can exe?*/
-				if ((stat(fullpath, &fpath) == 0))
-				{
-					input[0] = fullpath;
-					break;
-				}
-				i++;
 			}
 			execute(input); /*// EXECUTE PHASE \\ */
 		}
@@ -61,7 +46,5 @@ int main(int argc, char *argv[])
 			execute(input);
 	}
 	free(input);
-	free(binpath);
-	free(fullpath);
 	return (0);
 }
