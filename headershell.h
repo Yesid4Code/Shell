@@ -18,6 +18,8 @@ char **get_path();
 char *get_environ(char *envar);
 char *pathtoexecute(char **input);
 void execute(char **binpath);
+
 char *_strdup(char *str);
+int countstrings(char *str);
 
 #endif
