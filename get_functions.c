@@ -9,37 +9,29 @@
  */
 char **get_input(char *line)
 {
-	char **argstr;/* pointer to return */
-	char *tokens = NULL;/* containt each string typing */
-	char *limstr[1] = {" \t\n\r"};/* string delimited */
-	int i = 0;/*, j;*/
-	/*char *line = _strdup(li);*/
+	char **argstr = NULL; /*pointer to strings */
+	char *tokens = NULL; /* containt each string typed */
+	char *limstr[4] = {" \t\n\r"}; /* string delimited */
+	int i = 0, j;
+	unsigned int sizepptr = 0; /* number of strings typed */
 
-	/*printf("%s", line);*/
-	if (*line == '\n')
+	sizepptr = countstrings(line);
+	if (sizepptr == 0)
 		return (NULL);
-	tokens = strtok(line, *limstr);
-	/* Verified Ctrl+D was type or if first token == "exit"*/
-	/** if (read == EOF)
-	{
-		for (j = i; j >= 0; j--)
-			free(argstr[j]);
-		free(argstr);
-		if (read == EOF)
-			write(STDOUT_FILENO, "\n", 1);*/
-		/*exit(EXIT_SUCCESS); } */
 
-	argstr = malloc(sizeof(char *) * 64);
+	argstr = malloc(sizeof(char *) * sizepptr);
 	if (!argstr)
 		return (NULL);
 
-	while (tokens != NULL)/*token each string*/
+	tokens = strtok(line, *limstr) /* Tokenization the line typed*/
+	while (tokens != NULL) /* Token each string */
 	{
-		/* Allocate each string in argstr[i]*/
-		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);
+		/* Allocate each string in argstr[i] */
+		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);/*+1?*/
 		if (!argstr[i])
 		{
-			free(argstr[i]);
+			for (j = i; j >= 0; j--) /* freezing argstr*/
+				free(argstr[i]);
 			free(argstr);
 			return (NULL);
 		}
@@ -48,7 +40,6 @@ char **get_input(char *line)
 		i++;
 	}
 	argstr[i] = NULL;
-	/*free(line);*/
 	return (argstr);
 }
 
@@ -74,39 +65,44 @@ char *get_environ(char *envar)
 /**
  * get_path - get subdirectories
  *
- *
  * Return: Always 0 success
  */
 char **get_path()
 {
-	/* search path */
-	/*store 7 positions*/
-	char *path = NULL, **argpath = malloc(sizeof(char *) * 64);
+	char *path = NULL, **argpath = NULL;
 	char *path_token = NULL;
 	char *limpath[1] = {":"};
 	int i = 0, j = 0;
+	unsigned int sizepptr = 0; /* number of subdirectories */
 
 	path = _strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	if (!path)
+		return (NULL);
+
+	sizepptr = countstrings(path);
+	argpath = malloc(sizeof(char *) * sizepptr);
+	if (argpath ==NULL)
 	{
-		free(path), free(argpath);
+		free(path);
 		return (NULL);
 	}
-	path_token = strtok(path, limpath[0]);/*duplicate path*/
 
-	while (path_token != NULL && i < 8)/*My hardcore to work excellent*/
+	path_token = strtok(path, limpath[0]);
+	while (path_token != NULL) /* Tokenizatio each subdirectorie */
 	{
-		argpath[i] = _strdup(path_token);
+		argpath[i] = malloc(sizeof(char *) * strlen(path_token) + 1);
 		if (!argpath[i])
 		{
 			for (j = i; j >= 0; j--)
 				free(argpath[j]);
-			free(argpath);
+			free(argpath), free(path);
 			return (NULL);
 		}
-		strcat(argpath[i], "/"), path_token = strtok(NULL, ":");
+		argpath[i] = path_token;
+		strcat(argpath[i], "/"), path_token = strtok(NULL, *limpath);
 		i++;
 	}
-	argpath[i] = NULL, free(path_token), free(path); /*free paths var*/
+	argpath[i] = NULL;
+	free(path_token), free(path); /*free paths var*/
 	return (argpath);
 }
