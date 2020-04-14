@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	struct stat fpath;
 	char *line = NULL;
 	char **input; /* command typing by user */
-	char **binpath; /* pointer to PATH*/
+	char **binpath; /* pointer to PATH BORRAR*/
 	size_t len = 0;
 	ssize_t read;/*chars read by getline() */
 	char *fullpath = NULL;
@@ -22,18 +22,27 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		printf("#cisfun$ ");/*prompt */
+		write(STDOUT_FILENO,"#cisfun$ ", 9); /*printf("#cisfun$ ");*prompt */
 		/*// READING PHASE \\ */
 		read = getline(&line, &len, stdin);
 		if (read == -1)
-			break;
-		input = get_input(line); /*receive the command type by the user*/
+			break;/*should be a continue?*/
+		/* receive the command type by the user*/
+		input = get_input(line, read);
+		if (input == NULL)
+		{
+			free(input);
+			continue;/*exit(EXIT_SUCCESS);*/
+		}
 		/*// SEARCHING PATH PHASE \\ */
 		if (line[0] != '/')
 		{
 			binpath = get_path();
 			if (!binpath)
-				free(binpath), free(input), exit(EXIT_FAILURE);
+			{
+				free(binpath), free(input);/*exit(EXIT_FAILURE);*/
+				continue;
+			}
 			i = 0;
 			while (binpath[i] != NULL)
 			{	/*concatenate the strings*/
