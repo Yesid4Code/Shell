@@ -1,9 +1,9 @@
 #include "headershell.h"
-#include <stdio.h>
+
 /**
  * get_input - get input typing for the user
  * @line: string type
- *
+ * @read: value from get_line function, 0 Ok, -1 failure
  *
  * Return: Always 0 success
  */
@@ -33,15 +33,14 @@ char **get_input(char *line, ssize_t read)
 		}
 		argstr[i] = tokens;
 		/* Verified Ctrl+D was type or if first token == "exit"*/
-		if (read == EOF || !strcmp("exit", argstr[0]))
+		/** if (read == EOF)
 		{
 			for (j = i; j >= 0; j--)
 				free(argstr[j]);
 			free(argstr);
-			/*if (read == EOF)
+			if (read == EOF)
 				write(STDOUT_FILENO, "\n", 1);*/
-			exit(EXIT_SUCCESS);
-		}
+			/*exit(EXIT_SUCCESS); } */
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
