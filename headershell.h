@@ -13,9 +13,10 @@
 #include <sys/wait.h>
 
 
-char **get_input(char *line, int read);
+char **get_input(char *line, ssize_t read);
 char **get_path();
 char *get_environ(char *envar);
+char *pathtoexecute(char **input);
 void execute(char **binpath);
 char *_strdup(char *str);
 
