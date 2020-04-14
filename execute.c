@@ -48,13 +48,12 @@ void execute(char **binpath)
 
 	exechild = fork();
 	if (exechild < 0) /*create a child procces? */
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); /*return (NULL);*/
 	else if (exechild == 0)
 	{
 		if (execve(*binpath, binpath, environ) == -1)
 		{
 			perror(*binpath), free(binpath);
-			exit(EXIT_FAILURE);
 		}
 	}
 	else
