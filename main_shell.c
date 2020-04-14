@@ -10,31 +10,32 @@
 int main(int argc, char *argv[])
 {
 	char *line = NULL;
-	char **input; /* command typing by user */
+	char **input; /*command typing by user */
 	size_t len = 0;
-	ssize_t read;/*chars read by getline() */
+	ssize_t read; /*chars read by getline() */
 
 	(void)argc;
 	(void)argv;
 
 	while (1)
 	{
-		write(STDOUT_FILENO,"#cisfun$ ", 9); /*printf("#cisfun$ ");*prompt */
-		/*// READING PHASE \\ */
+		write(STDOUT_FILENO,"#cisfun$ ", 9); /*Display prompt */
+
+		/* ||READING PHASE|| */
 		read = getline(&line, &len, stdin);
-		if (read == EOF)
+		if (read == EOF) /* If getline could not read the line*/
 		{
 			write(STDOUT_FILENO,"\n", 1);
-			continue; /*should be a continue?*/
+			continue; /* Return to display prompt*/
 		}
-		/* receive the command type by the user*/
+		/* Receive the command type by the user */
 		input = get_input(line);
 		if (input == NULL)
 		{
 			free(input);
 			continue;
 		}
-		/*// SEARCHING PATH PHASE \\ */
+		/* ||SEARCHING PATH PHASE|| */
 		if (line[0] != '/')
 		{
 			input[0] = _strdup(pathtoexecute(input));
@@ -43,7 +44,7 @@ int main(int argc, char *argv[])
 				free(input[0]), free(input);
 				continue;
 			}
-			execute(input); /*// EXECUTE PHASE \\ */
+			execute(input); /* ||EXECUTE PHASE|| */
 		}
 		else
 			execute(input);
