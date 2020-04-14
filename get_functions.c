@@ -7,12 +7,12 @@
  *
  * Return: Always 0 success
  */
-char **get_input(char *line, ssize_t read)
+char **get_input(char *line)
 {
 	char **argstr;/* pointer to return */
 	char *tokens = NULL;/* containt each string typing */
 	char *limstr[1] = {" \t\n\r"};/* string delimited */
-	int i = 0, j;
+	int i = 0;/*, j;*/
 	/*char *line = _strdup(li);*/
 
 	tokens = strtok(line, *limstr);
@@ -107,11 +107,3 @@ char **get_path()
 	argpath[i] = NULL, free(path_token), free(path); /*free paths var*/
 	return (argpath);
 }
-
-/**
- * pathtoexecute - concate
- * @argpath: array of environ var PATH
- *
- * Return: Always 0 success
- */
-/*void *pathtoexecute(char **argpath)*/
