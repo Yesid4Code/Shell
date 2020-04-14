@@ -15,6 +15,10 @@ char **get_input(char *line)
 	int i = 0, j;
 	unsigned int sizepptr = 0; /* number of strings typed */
 
+	if (!strncmp(line, "exit\n", 4))
+	{
+		free(line), exit(EXIT_SUCCESS);
+	}
 	sizepptr = countstrings(line);
 	if (sizepptr == 0)
 		return (NULL);
@@ -23,7 +27,7 @@ char **get_input(char *line)
 	if (!argstr)
 		return (NULL);
 
-	tokens = strtok(line, *limstr) /* Tokenization the line typed*/
+	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
 	while (tokens != NULL) /* Token each string */
 	{
 		/* Allocate each string in argstr[i] */
@@ -78,8 +82,9 @@ char **get_path()
 	path = _strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	if (!path)
 		return (NULL);
-
+	printf("PATH = %s\n", path);/*PRUEBA*/
 	sizepptr = countstrings(path);
+	printf("sizepptr = %u\n", sizepptr);/*PRUEBA*/
 	argpath = malloc(sizeof(char *) * sizepptr);
 	if (argpath ==NULL)
 	{
@@ -87,8 +92,8 @@ char **get_path()
 		return (NULL);
 	}
 
-	path_token = strtok(path, limpath[0]);
-	while (path_token != NULL) /* Tokenizatio each subdirectorie */
+	path_token = _strdup(strtok(path, limpath[0]));
+	while (path_token != NULL) /* Tokenizatio each subdirectories */
 	{
 		argpath[i] = malloc(sizeof(char *) * strlen(path_token) + 1);
 		if (!argpath[i])
@@ -98,8 +103,9 @@ char **get_path()
 			free(argpath), free(path);
 			return (NULL);
 		}
-		argpath[i] = path_token;
-		strcat(argpath[i], "/"), path_token = strtok(NULL, *limpath);
+		argpath[i] = _strdup(path_token), strcat(argpath[i], "/");
+		path_token = strtok(NULL, *limpath);
+		printf("WHILE ARGPATH %i = %s\n", i, argpath[i]); /*PRUEBA WHILE*/
 		i++;
 	}
 	argpath[i] = NULL;
