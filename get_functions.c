@@ -7,7 +7,7 @@
  *
  * Return: Always 0 success
  */
-char **get_input(char *line, int read)
+char **get_input(char *line, ssize_t read)
 {
 	char **argstr;/* pointer to return */
 	char *tokens = NULL;/* containt each string typing */
@@ -17,7 +17,7 @@ char **get_input(char *line, int read)
 
 	tokens = strtok(line, *limstr);
 
-	argstr = malloc(sizeof(char *));
+	argstr = malloc(sizeof(char *) * 64);
 	if (!argstr)
 		return (NULL);
 
@@ -38,8 +38,8 @@ char **get_input(char *line, int read)
 			for (j = i; j >= 0; j--)
 				free(argstr[j]);
 			free(argstr);
-			if (read == EOF)
-				write(STDOUR_FILENE, "\n", 1);
+			/*if (read == EOF)
+				write(STDOUT_FILENO, "\n", 1);*/
 			exit(EXIT_SUCCESS);
 		}
 		tokens = strtok(NULL, *limstr);
@@ -100,6 +100,7 @@ char **get_path()
 			for (j = i; j >= 0; j--)
 				free(argpath[j]);
 			free(argpath);
+			return (NULL);
 		}
 		strcat(argpath[i], "/"), path_token = strtok(NULL, ":");
 		i++;
