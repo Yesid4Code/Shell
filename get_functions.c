@@ -2,7 +2,6 @@
 
 /**
  * get_input - get input typing for the user
- * @line: string type
  *
  * Return: Always 0 success
  */
@@ -26,14 +25,14 @@ char **get_input()
 	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr + 1);
 	if (!argstr || (sizepptr == 0))
 	{
-		free(argstr); free(line);
+		free(argstr), free(line);
 		return (NULL);
 	}
 	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
 	while (tokens != NULL) /* Token each string */
 	{
 		/* Allocate each string in argstr[i] */
-		argstr[i] = malloc(sizeof(char) * strlen(tokens) + 1);/*+1?*/
+		argstr[i] = malloc(sizeof(char) * _strlen(tokens) + 1);/*+1?*/
 		if (!argstr[i])
 		{
 			for (j = i; j >= 0; j--) /* freezing argstr*/
@@ -60,9 +59,9 @@ char *get_environ(char *envar)
 
 	while (environ[i])
 	{
-		if (strncmp(environ[i], envar, strlen(envar)) == 0)
+		if (strncmp(environ[i], envar, _strlen(envar)) == 0)
 			/*return pointer to subdir*/
-			return (environ[i] + strlen(envar) + 1);
+			return (environ[i] + _strlen(envar) + 1);
 		i++;
 	}
 	return (NULL);
@@ -95,15 +94,15 @@ char **get_path()
 	path_token = _strdup(strtok(path, limpath[0]));
 	while (path_token != NULL) /* Tokenizatio each subdirectories */
 	{
-		argpath[i] = malloc(sizeof(char *) * strlen(path_token) + 1);
+		argpath[i] = _strdup(path_token);
 		if (!argpath[i])
 		{
-			for (j = i; j >= 0; j--)
+			for (j = i; j >= 0; j--) /* FIX MEMORY LEAK SOON */
 				free(argpath[j]);
 			free(argpath), free(path);
 			return (NULL);
 		}
-		argpath[i] = _strdup(path_token), strcat(argpath[i], "/");
+		str_concat(argpath[i], "/");
 		path_token = strtok(NULL, *limpath);
 		i++;
 	}
