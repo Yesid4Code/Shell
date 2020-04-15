@@ -9,28 +9,19 @@
  */
 int main(int argc, char *argv[])
 {
-	char *line = NULL, **input; /*command typing by user */
-	size_t len = 0;
-	ssize_t read; /*chars read by getline() */
+	char **input; /*command typing by user */
+	/*int i = 0;*/
 
 	(void)argc, (void)argv;
 
 	while (1)
 	{
 		write(STDOUT_FILENO, "#cisfun$ ", 9); /*Display prompt */
-
 		/* ||READING PHASE|| */
-		read = getline(&line, &len, stdin);
-		if (read == EOF) /* If getline could not read the line*/
-		{
-			write(STDOUT_FILENO, "\n", 1);
-			continue; /* Return to display prompt*/
-		}
 		/* Receive the command type by the user */
-		input = get_input(line);
+		input = get_input();
 		if (input == NULL)
 		{
-			free(input);
 			continue;
 		}
 		/* ||SEARCHING PATH PHASE|| */
@@ -39,7 +30,7 @@ int main(int argc, char *argv[])
 			input[0] = _strdup(pathtoexecute(input));
 			if (!input[0])
 			{
-				free(input), free(line);
+				free(input);
 				continue;
 			}
 			execute(input); /* ||EXECUTE PHASE|| */
@@ -47,6 +38,6 @@ int main(int argc, char *argv[])
 		else
 			execute(input);
 	}
-	free(input), free(line);
+	free(input);
 	return (0);
 }
