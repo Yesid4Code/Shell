@@ -6,26 +6,29 @@
  *
  * Return: Always 0 success
  */
-char **get_input(char *line)
+char **get_input()
 {
-	char **argstr = NULL; /*pointer to strings */
-	char *tokens = NULL; /* containt each string typed */
-	char *limstr[4] = {" \t\n\r"}; /* string delimited */
+	char **argstr = NULL, *tokens = NULL, *limstr[4] = {" \t\n\r"};
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read; /*chars read by getline() */
 	int i = 0, j;
 	unsigned int sizepptr = 0; /* number of strings typed */
 
-	if (!strncmp(line, "exit\n", 4))
+	/* ||READING PHASE|| */
+	read = getline(&line, &len, stdin);
+	if (read == EOF || !strncmp(line, "exit\n", 4))
 	{
+		if (read == EOF)
+			write(STDOUT_FILENO, "\n", 1);
 		free(line), exit(EXIT_SUCCESS);
 	}
-	sizepptr = countstrings(line);
-	if (sizepptr == 0)
+	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
+	if (!argstr || (sizepptr == 0))
+	{
+		free(argstr); free(line);
 		return (NULL);
-
-	argstr = malloc(sizeof(char *) * sizepptr);
-	if (!argstr)
-		return (NULL);
-
+	}
 	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
 	while (tokens != NULL) /* Token each string */
 	{
