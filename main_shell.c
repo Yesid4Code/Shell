@@ -10,7 +10,6 @@
 int main(int argc, char *argv[])
 {
 	char **input; /*command typing by user */
-	/*int i = 0;*/
 
 	(void)argc, (void)argv;
 
