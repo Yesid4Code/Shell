@@ -23,7 +23,7 @@ char **get_input()
 			write(STDOUT_FILENO, "\n", 1);
 		free(line), exit(EXIT_SUCCESS);
 	}
-	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
+	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr + 1);
 	if (!argstr || (sizepptr == 0))
 	{
 		free(argstr); free(line);
