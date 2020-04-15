@@ -17,13 +17,13 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		write(STDOUT_FILENO,"#cisfun$ ", 9); /*Display prompt */
+		write(STDOUT_FILENO, "#cisfun$ ", 9); /*Display prompt */
 
 		/* ||READING PHASE|| */
 		read = getline(&line, &len, stdin);
 		if (read == EOF) /* If getline could not read the line*/
 		{
-			write(STDOUT_FILENO,"\n", 1);
+			write(STDOUT_FILENO, "\n", 1);
 			continue; /* Return to display prompt*/
 		}
 		/* Receive the command type by the user */

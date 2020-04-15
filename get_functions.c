@@ -3,7 +3,6 @@
 /**
  * get_input - get input typing for the user
  * @line: string type
- * @read: value from get_line function, 0 Ok, -1 failure
  *
  * Return: Always 0 success
  */
@@ -82,11 +81,9 @@ char **get_path()
 	path = _strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	if (!path)
 		return (NULL);
-	printf("PATH = %s\n", path);/*PRUEBA*/
 	sizepptr = countstrings(path);
-	printf("sizepptr = %u\n", sizepptr);/*PRUEBA*/
 	argpath = malloc(sizeof(char *) * sizepptr);
-	if (argpath ==NULL)
+	if (argpath == NULL)
 	{
 		free(path);
 		return (NULL);
@@ -105,7 +102,6 @@ char **get_path()
 		}
 		argpath[i] = _strdup(path_token), strcat(argpath[i], "/");
 		path_token = strtok(NULL, *limpath);
-		printf("WHILE ARGPATH %i = %s\n", i, argpath[i]); /*PRUEBA WHILE*/
 		i++;
 	}
 	argpath[i] = NULL;

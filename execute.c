@@ -2,9 +2,9 @@
 
 /**
  * pathtoexecute - search directory of a command
- * @argpath: receive the environ path.
+ * @input: receive the environ path.
  *
- * Return
+ * Return: path to command, ex: /bin/ls
  */
 char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
 {
@@ -42,7 +42,10 @@ void execute(char **binpath)
 
 	exechild = fork();
 	if (exechild < 0) /*create a child procces? */
+	{
+		free(binpath);
 		exit(EXIT_FAILURE); /*return (NULL);*/
+	}
 	else if (exechild == 0)
 	{
 		if (execve(*binpath, binpath, environ) == -1)
