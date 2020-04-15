@@ -20,6 +20,8 @@ char *pathtoexecute(char **input);
 void execute(char **binpath);
 
 char *_strdup(char *str);
+int _strlen(char *s);
 int countstrings(char *str);
+char *str_concat(char *s1, char *s2);
 
 #endif
