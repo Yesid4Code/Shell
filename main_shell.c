@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 			continue;
 		}
 		/* ||SEARCHING PATH PHASE|| */
-		if (line[0] != '/')
+		if (**input != '/')
 		{
 			input[0] = _strdup(pathtoexecute(input));
 			if (!input[0])
