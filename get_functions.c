@@ -18,8 +18,7 @@ char **get_input()
 	read = getline(&line, &len, stdin);
 	if (read == EOF || !strncmp(line, "exit\n", 4))
 	{
-		if (read == EOF)
-			write(STDOUT_FILENO, "\n", 1);
+		if (read == EOF) /*write(STDOUT_FILENO, "\n", 1);*/
 		free(line), exit(EXIT_SUCCESS);
 	}
 	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
