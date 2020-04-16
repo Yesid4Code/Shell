@@ -8,53 +8,62 @@
  */
 char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
 {
-	char **binpath;
+	char **binpath = NULL;
 	char *fullpath = NULL;
-	int i = 0;
+	int i = 0, j = 0;
 	struct stat fpath;
 
 	binpath = get_path();
+	if (!binpath)
+		return (NULL);
 	while (binpath && binpath[i] != NULL)/* exists */
 	{/*concatenate the strings*/
-		fullpath = _strdup(strcat(binpath[i], input[0]));
+		fullpath = str_concat(binpath[i], input[0]);
 		/*exists or can exe?*/
 		if ((stat(fullpath, &fpath) == 0))
 		{
-			free(binpath); /*, free(input);*/
+			for (j = i; j >= 0; j--)
+				free(binpath[j]);
+			free(binpath)/*, free(input[0])*/; /*DOBLE MALLOC - POSIBLE CONFLICTO*/
 			return (fullpath);
 		}
 		i++;
 	}
-	free(fullpath), free(binpath); /*, free(input);*/
+	perror(fullpath);
+	for (j = i; j >= 0; j--)
+		free(binpath[j]);
+	free(binpath), free(input);
 	return (NULL);
 }
 
 /**
  * execute - execute the path
- * @binpath: string to execute + arguments
+ * @input: string to execute + arguments
  *
  * Return: Always 0 success
  */
-void execute(char **binpath)
+void execute(char **input)
 {
 	pid_t exechild;
 	int status;
 
 	exechild = fork();
-	if (exechild < 0) /*create a child procces? */
-	{
-		free(binpath);
-		exit(EXIT_FAILURE); /*return (NULL);*/
+	if (exechild < 0) /*Not create a child procces */
+	{	/*PRINT VALUE FORK()*/
+		free(input);
+		exit(EXIT_FAILURE);
+		/*return (exechild);*/
 	}
 	else if (exechild == 0)
 	{
-		if (execve(*binpath, binpath, environ) == -1)
+		if (execve(*input, input, environ) == -1)
 		{
-			perror(*binpath), free(binpath);
+			perror(*input), free(input);
+			/*return (execve(*input, input, environ));*/
 			exit(EXIT_FAILURE);
 		}
 	}
-	else
+	else /* Successful forks return positive process id's the parent */
 		while (wait(&status) != exechild)
 		{}
 }
