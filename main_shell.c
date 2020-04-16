@@ -36,13 +36,13 @@ int main(int argc, char *argv[])
 			else
 			{/* ||EXECUTE PHASE|| */
 				/*exefun = receive return of bad executing*/
-				execute(input), free(input);
+				execute(input);
 				continue;
 				/*if (exefun < 0)	continue;*/
 			}
 		}
 		else
-			execute(input),	free(input);
+			execute(input);
 	}
 	free(input);
 	return (0);
