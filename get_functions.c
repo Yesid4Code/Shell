@@ -44,7 +44,7 @@ char **get_input()
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
-	argstr[i] = NULL;
+	/*argstr[i] = NULL;*/
 	return (argstr);
 }
 
@@ -109,7 +109,7 @@ char **get_path()
 		path_token = strtok(NULL, *limpath);
 		i++;
 	}
-	argpath[i] = NULL;
+	/*argpath[i] = NULL;*/
 	free(path_token), free(path); /*free paths var*/
 	return (argpath);
 }
