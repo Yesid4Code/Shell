@@ -1,6 +1,18 @@
 #include "headershell.h"
 
 /**
+ * control_c - catch signal of Ctrl + C
+ * @c: value signal typed
+ *
+ * Return: void
+ */
+void control_c(int c)
+{
+	if (c == SIGINT)
+		write(STDOUT_FILENO, "\n#cisfun$ ", 10);
+}
+
+/**
  * _strdup - Function that return a pointer to duplicate string.
  * @str: pointer to a string.
  *
@@ -75,13 +87,21 @@ int countstrings(char *str)
 
 char *str_concat(char *s1, char *s2)
 {
-	int i = 0, j = 0;
+	char *s3 = NULL; /*string complete */
+	int i = 0, j = 0, k = 0, m = 0;
 
-	i = _strlen(s1);
-	for (j = 0;  s2[j] != '\0'; j++, i++)
-	{
-		s1[i] = s2[j];
-	}
-	s1[i] = '\0';
-	return (s1);
+	i = _strlen(s1), j = _strlen(s2) + 1;
+
+	s3 = malloc(sizeof(char) * (i + j));
+	if (!s3)
+		return (NULL);
+
+	for (k = 0;  s1[k] != '\0'; k++)
+		s3[k] = s1[k];
+
+	for (;  s2[m] != '\0'; k++, m++)
+		s3[k] = s2[m];
+
+	s3[k] = '\0';
+	return (s3);
 }
