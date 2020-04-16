@@ -22,7 +22,7 @@ char **get_input()
 			write(STDOUT_FILENO, "\n", 1);
 		free(line), exit(EXIT_SUCCESS);
 	}
-	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr + 1);
+	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
 	if (!argstr || (sizepptr == 0))
 	{
 		free(argstr), free(line);
@@ -35,7 +35,7 @@ char **get_input()
 		argstr[i] = malloc(sizeof(char) * _strlen(tokens) + 1);/*+1?*/
 		if (!argstr[i])
 		{
-			for (j = i; j >= 0; j--) /* freezing argstr*/
+			for (j = i; j >= 0; j--) /* free argstr*/
 				free(argstr[i]);
 			free(argstr);
 			return (NULL);
@@ -84,25 +84,28 @@ char **get_path()
 	if (!path)
 		return (NULL);
 	sizepptr = countstrings(path);
-	argpath = malloc(sizeof(char *) * sizepptr);
+	argpath = malloc(sizeof(char *) * sizepptr/* + 1*/);
 	if (argpath == NULL)
 	{
 		free(path);
 		return (NULL);
 	}
-
 	path_token = _strdup(strtok(path, limpath[0]));
-	while (path_token != NULL) /* Tokenizatio each subdirectories */
+	if (path_token == NULL)
 	{
-		argpath[i] = _strdup(path_token);
+		free(argpath), free(path);
+		return (NULL);
+	}
+	while (path_token != NULL) /* Tokenization each subdirectories */
+	{
+		argpath[i] = str_concat(path_token, "/");
 		if (!argpath[i])
 		{
 			for (j = i; j >= 0; j--) /* FIX MEMORY LEAK SOON */
 				free(argpath[j]);
-			free(argpath), free(path);
+			free(argpath), free(path), free(path_token);
 			return (NULL);
 		}
-		str_concat(argpath[i], "/");
 		path_token = strtok(NULL, *limpath);
 		i++;
 	}
