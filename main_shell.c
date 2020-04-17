@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	/*int exefun = 0; return execute function */
 	(void)argc, (void)argv;
 
-	/*signal(SIGINT, ctrl_c);*/
+	signal(SIGINT, control_c); /*read ctrl + C or */
 
 	while (1)
 	{
