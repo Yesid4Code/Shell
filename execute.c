@@ -29,7 +29,7 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
 		}
 		i++;
 	}
-	perror(*input);
+	perror(*input);/*Print error message */
 	for (j = i; j >= 0; j--)
 		free(binpath[j]);
 	free(binpath); /*DON'T FREE INPUT*/
@@ -42,21 +42,22 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
  *
  * Return: Always 0 success
  */
-int execute(char **input)
+int execute(char *cmd, char **input)
 {
 	pid_t exechild;
-	int status;
+	int status, i = 0;
 
 	exechild = fork();
 	if (exechild < 0) /*Not create a child procces */
 	{	/*PRINT VALUE FORK()*/
 		/*free(input);*/
 		return (exechild); /* exit(EXIT_FAILURE); */
-		/*return (exechild);*/
 	}
 	else if (exechild == 0)
 	{
-		return (execve(*input, input, environ));
+		for(; !input[i]; i++)
+			printf("cmd[%d]  = %s: input[%d] = %s\n", i, cmd, i, input[i]);
+		return (execve(cmd, input, environ));
 	}
 	else /* Successful forks return positive process id's the parent */
 		while (wait(&status) != exechild)
