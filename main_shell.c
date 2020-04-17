@@ -11,22 +11,15 @@ int main(int argc, char *argv[])
 {
 	char **input = NULL; /* command typing by user */
 	int r = 0; /*  to check if the execute was successfull */
-	/*int exefun = 0; return execute function */
+
 	(void)argc, (void)argv;
-
 	signal(SIGINT, control_c); /* read ctrl + C or */
-
 	while (1)
 	{
-		/*if (isatty(STDIN_FILENO)) Display prompt*/
-		/* write(STDOUT_FILENO, "#cisfun$ ", 9);*/
 		input = get_input();/* ||READING PHASE|| */
 		if (input == NULL)
-		{
 			continue;
-		}
-		/* ||SEARCHING PATH PHASE|| */
-		if (**input != '/')
+		if (**input != '/') /* ||SEARCHING PATH PHASE || */
 		{
 			input[0] = pathtoexecute(input);
 			if (!input[0])
@@ -36,9 +29,8 @@ int main(int argc, char *argv[])
 			}
 			else
 			{/* ||EXECUTE PHASE|| */
-				/*exefun = receive return of bad executing*/
 				r = execute(input);
-				if ( r == -1)
+				if (r == -1)
 				{
 					perror(*input), free(input);
 					continue;
@@ -48,7 +40,7 @@ int main(int argc, char *argv[])
 		else
 		{
 			r = execute(input);
-			if ( r == -1)
+			if (r == -1)
 			{
 				perror(*input), free(input);
 				continue;

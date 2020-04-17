@@ -56,12 +56,7 @@ int execute(char **input)
 	}
 	else if (exechild == 0)
 	{
-		return(execve(*input, input, environ));
-		/*{
-			perror(*input), free(input);
-			return (execve(*input, input, environ));
-			exit(EXIT_FAILURE);
-		}*/
+		return (execve(*input, input, environ));
 	}
 	else /* Successful forks return positive process id's the parent */
 		while (wait(&status) != exechild)
