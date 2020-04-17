@@ -18,7 +18,7 @@ char **get_input()
 	read = getline(&line, &len, stdin);
 	if (read == EOF || !strncmp(line, "exit\n", 4))
 	{
-		if (read == EOF) /*write(STDOUT_FILENO, "\n", 1);*/
+		/*if (read == EOF) write(STDOUT_FILENO, "\n", 1);*/
 		free(line), exit(EXIT_SUCCESS);
 	}
 	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
@@ -36,10 +36,11 @@ char **get_input()
 		{
 			for (j = i; j >= 0; j--) /* free argstr*/
 				free(argstr[i]);
-			free(argstr);
+			free(argstr), free(line);
 			return (NULL);
 		}
 		argstr[i] = tokens;
+		printf("agstr[%d] = %s lenght = %d\n", i, argstr[i], _strlen(argstr[i])); /*PRUEBA /bin/ls -l /tmp */
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
