@@ -16,7 +16,7 @@ char **get_input()
 
 	/* ||READING PHASE|| */
 	read = getline(&line, &len, stdin);
-	if (read == EOF || !strncmp(line, "exit\n", 4))
+	if (read == EOF || !_strncmp(line, "exit\n", 4))
 	{
 		/*if (read == EOF) write(STDOUT_FILENO, "\n", 1);*/
 		free(line), exit(EXIT_SUCCESS);
@@ -40,11 +40,9 @@ char **get_input()
 			return (NULL);
 		}
 		argstr[i] = tokens;
-		printf("agstr[%d] = %s lenght = %d\n", i, argstr[i], _strlen(argstr[i])); /*PRUEBA /bin/ls -l /tmp */
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
-	/*argstr[i] = NULL;*/
 	return (argstr);
 }
 
@@ -59,7 +57,7 @@ char *get_environ(char *envar)
 
 	while (environ[i])
 	{
-		if (strncmp(environ[i], envar, _strlen(envar)) == 0)
+		if (_strncmp(environ[i], envar, _strlen(envar)) == 0)
 			/*return pointer to subdir*/
 			return (environ[i] + _strlen(envar) + 1);
 		i++;
