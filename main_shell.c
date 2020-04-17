@@ -9,37 +9,38 @@
  */
 int main(int argc, char *argv[])
 {
-	char **input = NULL; /* command typing by user */
+	char **input = NULL, *cmd; /* command & pathcommand */
 	int r = 0; /* check if the execute was successfull */
 
 	(void)argc, (void)argv;
-	signal(SIGINT, control_c); /* read ctrl + C or */
+	signal(SIGINT, control_c); /* read ctrl + C */
 	while (1)
 	{
 		input = get_input();/* ||READING PHASE|| */
 		if (input == NULL)
 			continue; /*ADD executing in current directory getcwd()"./"??*/
+		/*https://pubs.opengroup.org/onlinepubs/009695399/functions/getcwd.html*/
 		if (**input != '/' || !strncmp(*input, "./", 2))
 		{/*||SEARCHING PATH PHASE || */
-			input[0] = pathtoexecute(input);/*duplicate??*/
-			if (!input[0])
+			cmd = pathtoexecute(input);/*duplicate??*/
+			if (!cmd)
 			{
-				freepptr(input);/*free double pptr*/
+				freepptr(input), free(cmd);/*free double pptr*/
 				continue;
 			}
 			else /* ||EXECUTE PHASE|| */
 			{
-				r = execute(input);
+				r = execute(cmd, input);
 				if (r == -1)
 				{
-					freepptr(input);
+					freepptr(input), free(cmd);
 					continue;
 				}
 			}
 		}
 		else
 		{
-			r = execute(input);
+			r = execute(*input, input);
 			if (r == -1)
 			{
 				freepptr(input);
