@@ -42,7 +42,7 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
  *
  * Return: Always 0 success
  */
-void execute(char **input)
+int execute(char **input)
 {
 	pid_t exechild;
 	int status;
@@ -51,19 +51,20 @@ void execute(char **input)
 	if (exechild < 0) /*Not create a child procces */
 	{	/*PRINT VALUE FORK()*/
 		/*free(input);*/
-		exit(EXIT_FAILURE);
+		return (exechild); /* exit(EXIT_FAILURE); */
 		/*return (exechild);*/
 	}
 	else if (exechild == 0)
 	{
-		if (execve(*input, input, environ) == -1)
-		{
+		return(execve(*input, input, environ));
+		/*{
 			perror(*input), free(input);
-			/*return (execve(*input, input, environ));*/
+			return (execve(*input, input, environ));
 			exit(EXIT_FAILURE);
-		}
+		}*/
 	}
 	else /* Successful forks return positive process id's the parent */
 		while (wait(&status) != exechild)
 		{}
+	return (0);
 }
