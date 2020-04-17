@@ -1,4 +1,5 @@
 #include "headershell.h"
+#include <signal.h>
 
 /**
  * control_c - catch signal of Ctrl + C
@@ -10,6 +11,8 @@ void control_c(int c)
 {
 	if (c == SIGINT)
 		write(STDOUT_FILENO, "\n#cisfun$ ", 10);
+	/*else if (c == EOF)*/
+	/*write(STDOUT_FILENO, "\n", 1);*/
 }
 
 /**
