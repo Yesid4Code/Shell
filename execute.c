@@ -29,7 +29,7 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
 		}
 		i++;
 	}
-	perror(input[0]);
+	perror(*input);
 	for (j = i; j >= 0; j--)
 		free(binpath[j]);
 	free(binpath); /*DON'T FREE INPUT*/
