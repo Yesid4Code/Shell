@@ -19,7 +19,8 @@ int main(int argc, char *argv[])
 		input = get_input();/* ||READING PHASE|| */
 		if (input == NULL)
 			continue;
-		if (**input != '/') /* ||SEARCHING PATH PHASE || */
+		/*ADD executing in current directory getcwd()"./"??*/
+		if (**input != '/' || strncmp(*input, "./", 2)) /* ||SEARCHING PATH PHASE || */
 		{
 			input[0] = pathtoexecute(input);
 			if (!input[0])
