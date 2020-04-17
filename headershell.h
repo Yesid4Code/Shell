@@ -17,7 +17,7 @@ char **get_input();
 char **get_path();
 char *get_environ(char *envar);
 char *pathtoexecute(char **input);
-int execute(char **input);
+int execute(char *cmd, char **input);
 
 void control_c(int c);
 char *_strdup(char *str);
