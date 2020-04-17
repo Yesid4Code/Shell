@@ -25,5 +25,7 @@ int _strlen(char *s);
 int countstrings(char *str);
 char *str_concat(char *s1, char *s2);
 int _strncmp(const char *s1, const char *s2, size_t n);
+void freepptr(char **pptr);
 
-#endif
+
+#endif /* END HEADERSHELL */
