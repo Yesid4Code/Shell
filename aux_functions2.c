@@ -26,3 +26,19 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 		return (s1[i] - s2[j]);
 	}
 }
+
+/**
+ * freepptr -  free each position and later the double pointer
+ * @pptr: double pointer to free
+ *
+ *
+ * Return: diference
+ */
+void freepptr(char **pptr)
+{
+	int i = 0;
+
+	for (i = 0; !pptr[i]; i++)
+		free(pptr[i]);
+	free(pptr);
+}
