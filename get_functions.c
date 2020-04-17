@@ -1,7 +1,7 @@
 #include "headershell.h"
 
 /**
- * get_input - get input typing for the user
+ * get_input - get each argument typed for the user
  *
  * Return: Always 0 success
  */
@@ -10,8 +10,8 @@ char **get_input()
 	char **argstr = NULL, *tokens = NULL, *limstr[4] = {" \t\n\r"};
 	char *line = NULL;
 	size_t len = 0;
-	ssize_t read; /*chars read by getline() */
-	int i = 0, j;
+	ssize_t read; /*count chars read by getline() */
+	int i = 0;
 	unsigned int sizepptr = 0; /* number of strings typed */
 
 	if (isatty(STDIN_FILENO))
@@ -24,7 +24,7 @@ char **get_input()
 			write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS);
 	}
-	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
+	sizepptr = countstrings(line), argstr = (char **)malloc(sizeof(char *) * sizepptr);
 	if (!argstr || (sizepptr == 0))
 	{
 		free(argstr), free(line);
@@ -33,15 +33,14 @@ char **get_input()
 	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
 	while (tokens != NULL) /* Token each string */
 	{
-		argstr[i] = malloc(sizeof(char) * _strlen(tokens) + 1);/*+1?*/
+		argstr[i] = (char *)malloc(sizeof(char) * _strlen(tokens) + 1);/*+1?*/
 		if (!argstr[i]) /* Allocate each string in argstr[i] */
 		{
-			for (j = i; j >= 0; j--) /* free argstr*/
-				free(argstr[i]);
-			free(argstr), free(line);
+			freepptr(argstr), free(line);
 			return (NULL);
 		}
 		argstr[i] = tokens;
+		printf("%s\n", argstr[i]);
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
@@ -58,9 +57,8 @@ char *get_environ(char *envar)
 	int i = 0;
 
 	while (environ[i])
-	{
+	{	/*return pointer to subdir*/
 		if (_strncmp(environ[i], envar, _strlen(envar)) == 0)
-			/*return pointer to subdir*/
 			return (environ[i] + _strlen(envar) + 1);
 		i++;
 	}
@@ -77,14 +75,14 @@ char **get_path()
 	char *path = NULL, **argpath = NULL;
 	char *path_token = NULL;
 	char *limpath[1] = {":"};
-	int i = 0, j = 0;
+	int i = 0;
 	unsigned int sizepptr = 0; /* number of subdirectories */
 
 	path = _strdup(get_environ("PATH")); /* pointer to the copy of path*/
 	if (!path)
 		return (NULL);
 	sizepptr = countstrings(path);
-	argpath = malloc(sizeof(char *) * sizepptr/* + 1*/);
+	argpath = (char **)malloc(sizeof(char *) * sizepptr/* + 1*/);
 	if (argpath == NULL)
 	{
 		free(path);
@@ -101,9 +99,7 @@ char **get_path()
 		argpath[i] = str_concat(path_token, "/");
 		if (!argpath[i])
 		{
-			for (j = i; j >= 0; j--) /* FIX MEMORY LEAK SOON */
-				free(argpath[j]);
-			free(argpath), free(path), free(path_token);
+			freepptr(argpath), free(path_token), free(path);
 			return (NULL);
 		}
 		path_token = strtok(NULL, *limpath);
