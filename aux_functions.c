@@ -21,7 +21,6 @@ void control_c(int c)
  *
  * Return: Pointer to an string.
  */
-
 char *_strdup(char *str)
 {
 	int i = 0, j;
@@ -87,7 +86,6 @@ int countstrings(char *str)
  * @s2: String to concatenate.
  * Return: Pointer to an string.
  */
-
 char *str_concat(char *s1, char *s2)
 {
 	char *s3 = NULL; /*string complete */
