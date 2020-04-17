@@ -9,16 +9,17 @@
  */
 int main(int argc, char *argv[])
 {
-	char **input = NULL; /*command typing by user */
+	char **input = NULL; /* command typing by user */
+	int r = 0; /*  to check if the execute was successfull */
 	/*int exefun = 0; return execute function */
 	(void)argc, (void)argv;
 
-	signal(SIGINT, control_c); /*read ctrl + C or */
+	signal(SIGINT, control_c); /* read ctrl + C or */
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO)) /*Display prompt */
-			write(STDOUT_FILENO, "#cisfun$ ", 9);
+		/*if (isatty(STDIN_FILENO)) Display prompt*/
+		/* write(STDOUT_FILENO, "#cisfun$ ", 9);*/
 		input = get_input();/* ||READING PHASE|| */
 		if (input == NULL)
 		{
@@ -36,14 +37,24 @@ int main(int argc, char *argv[])
 			else
 			{/* ||EXECUTE PHASE|| */
 				/*exefun = receive return of bad executing*/
-				execute(input);
-				continue;
-				/*if (exefun < 0)	continue;*/
+				r = execute(input);
+				if ( r == -1)
+				{
+					perror(*input), free(input);
+					continue;
+				}
 			}
 		}
 		else
-			execute(input);
+		{
+			r = execute(input);
+			if ( r == -1)
+			{
+				perror(*input), free(input);
+				continue;
+			}
+		}
+		free(input);
 	}
-	free(input);
 	return (0);
 }
