@@ -10,7 +10,7 @@
 int main(int argc, char *argv[])
 {
 	char **input = NULL; /* command typing by user */
-	int r = 0; /*  to check if the execute was successfull */
+	int r = 0; /* check if the execute was successfull */
 
 	(void)argc, (void)argv;
 	signal(SIGINT, control_c); /* read ctrl + C or */
@@ -18,22 +18,21 @@ int main(int argc, char *argv[])
 	{
 		input = get_input();/* ||READING PHASE|| */
 		if (input == NULL)
-			continue;
-		/*ADD executing in current directory getcwd()"./"??*/
-		if (**input != '/' || strncmp(*input, "./", 2)) /* ||SEARCHING PATH PHASE || */
-		{
-			input[0] = pathtoexecute(input);
+			continue; /*ADD executing in current directory getcwd()"./"??*/
+		if (**input != '/' || !strncmp(*input, "./", 2))
+		{/*||SEARCHING PATH PHASE || */
+			input[0] = pathtoexecute(input);/*duplicate??*/
 			if (!input[0])
 			{
-				free(input);
+				freepptr(input);/*free double pptr*/
 				continue;
 			}
-			else
-			{/* ||EXECUTE PHASE|| */
+			else /* ||EXECUTE PHASE|| */
+			{
 				r = execute(input);
 				if (r == -1)
 				{
-					perror(*input), free(input);
+					freepptr(input);
 					continue;
 				}
 			}
@@ -43,11 +42,11 @@ int main(int argc, char *argv[])
 			r = execute(input);
 			if (r == -1)
 			{
-				perror(*input), free(input);
+				freepptr(input);
 				continue;
 			}
 		}
-		free(input);
+		freepptr(input);
 	}
 	return (0);
 }
