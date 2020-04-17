@@ -16,9 +16,8 @@ char **get_input()
 
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "#cisfun$ ", 9);
-	/* ||READING PHASE|| */
 	read = getline(&line, &len, stdin);
-	if (read == EOF || !_strncmp(line, "exit\n", 4))
+	if (read == EOF || !_strncmp(line, "exit\n", 4)) /* ||READING PHASE|| */
 	{
 		free(line);
 		if ((read == EOF) && isatty(STDIN_FILENO))
@@ -34,9 +33,8 @@ char **get_input()
 	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
 	while (tokens != NULL) /* Token each string */
 	{
-		/* Allocate each string in argstr[i] */
 		argstr[i] = malloc(sizeof(char) * _strlen(tokens) + 1);/*+1?*/
-		if (!argstr[i])
+		if (!argstr[i]) /* Allocate each string in argstr[i] */
 		{
 			for (j = i; j >= 0; j--) /* free argstr*/
 				free(argstr[i]);
@@ -111,7 +109,6 @@ char **get_path()
 		path_token = strtok(NULL, *limpath);
 		i++;
 	}
-	/*argpath[i] = NULL;*/
 	free(path_token), free(path); /*free paths var*/
 	return (argpath);
 }
