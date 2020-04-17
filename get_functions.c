@@ -14,12 +14,16 @@ char **get_input()
 	int i = 0, j;
 	unsigned int sizepptr = 0; /* number of strings typed */
 
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "#cisfun$ ", 9);
 	/* ||READING PHASE|| */
 	read = getline(&line, &len, stdin);
 	if (read == EOF || !_strncmp(line, "exit\n", 4))
 	{
-		/*if (read == EOF) write(STDOUT_FILENO, "\n", 1);*/
-		free(line), exit(EXIT_SUCCESS);
+		free(line);
+		if ((read == EOF) && isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n", 1);
+		exit(EXIT_SUCCESS);
 	}
 	sizepptr = countstrings(line), argstr = malloc(sizeof(char *) * sizepptr);
 	if (!argstr || (sizepptr == 0))
