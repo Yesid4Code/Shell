@@ -50,7 +50,7 @@ void execute(char **input)
 	exechild = fork();
 	if (exechild < 0) /*Not create a child procces */
 	{	/*PRINT VALUE FORK()*/
-		free(input);
+		/*free(input);*/
 		exit(EXIT_FAILURE);
 		/*return (exechild);*/
 	}
