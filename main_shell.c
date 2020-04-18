@@ -8,8 +8,8 @@
  * Return: Always 0 success
  */
 int main(int argc, char *argv[])
-{
-	char **input = NULL, *cmd; /* command & pathcommand */
+{	/*https://pubs.opengroup.org/onlinepubs/009695399/functions/getcwd.html*/
+	char **input = NULL, *cmd = NULL; /* command & pathcommand */
 	int r = 0; /* check if the execute was successfull */
 
 	(void)argc, (void)argv;
@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 		input = get_input();/* ||READING PHASE|| */
 		if (input == NULL)
 			continue; /*ADD executing in current directory getcwd()"./"??*/
-		/*https://pubs.opengroup.org/onlinepubs/009695399/functions/getcwd.html*/
 		if (**input != '/' || !strncmp(*input, "./", 2))
 		{/*||SEARCHING PATH PHASE || */
 			cmd = pathtoexecute(input);/*duplicate??*/
