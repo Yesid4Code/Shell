@@ -24,7 +24,8 @@ char **get_input()
 			write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS);
 	}
-	sizepptr = countstrings(line), argstr = (char **)malloc(sizeof(char *) * sizepptr);
+	sizepptr = countstrings(line);/*length string typed*/
+	argstr = (char **)malloc(sizeof(char *) * sizepptr);
 	if (!argstr || (sizepptr == 0))
 	{
 		free(argstr), free(line);
@@ -32,18 +33,18 @@ char **get_input()
 	}
 	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
 	while (tokens != NULL) /* Token each string */
-	{
-		argstr[i] = (char *)malloc(sizeof(char) * _strlen(tokens) + 1);/*+1?*/
+	{	/*+1?*/
+		argstr[i] = (char *)malloc(sizeof(char) * _strlen(tokens) + 1);
 		if (!argstr[i]) /* Allocate each string in argstr[i] */
 		{
 			freepptr(argstr), free(line);
 			return (NULL);
 		}
 		argstr[i] = tokens;
-		printf("%s\n", argstr[i]);
 		tokens = strtok(NULL, *limstr);
 		i++;
 	}
+	/*free(tokens); CHECK THIS FREES */
 	return (argstr);
 }
 
@@ -66,7 +67,7 @@ char *get_environ(char *envar)
 }
 
 /**
- * get_path - get subdirectories
+ * get_path - find subdirectories of environment variables
  *
  * Return: Always 0 success
  */
