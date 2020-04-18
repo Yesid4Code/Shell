@@ -39,13 +39,13 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
 /**
  * execute - execute the path
  * @input: string to execute + arguments
- *
+ * @cmd: command path
  * Return: Always 0 success
  */
 int execute(char *cmd, char **input)
 {
 	pid_t exechild;
-	int status, i = 0;
+	int status;
 
 	exechild = fork();
 	if (exechild < 0) /*Not create a child procces */
@@ -55,8 +55,6 @@ int execute(char *cmd, char **input)
 	}
 	else if (exechild == 0)
 	{
-		for(; !input[i]; i++)
-			printf("cmd[%d]  = %s: input[%d] = %s\n", i, cmd, i, input[i]);
 		return (execve(cmd, input, environ));
 	}
 	else /* Successful forks return positive process id's the parent */
