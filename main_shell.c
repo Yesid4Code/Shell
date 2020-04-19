@@ -4,10 +4,11 @@
  * main - Read, Search and execute the input
  * @argc: count arguments
  * @argv: array of arguments
+ * @environ: array of environment variables
  *
  * Return: Always 0 success
  */
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char **env)
 {	/*https://pubs.opengroup.org/onlinepubs/009695399/functions/getcwd.html*/
 	char **input = NULL, *cmd = NULL; /* command & pathcommand */
 	int r = 0; /* check if the execute was successfull */
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
 	signal(SIGINT, control_c); /* read ctrl + C */
 	while (1)
 	{
-		input = get_input();/* ||READING PHASE|| */
+		input = get_input(printpromt());/* ||READING PHASE|| */
 		if (input == NULL)
 			continue; /*ADD executing in current directory getcwd()"./"??*/
 		if (**input != '/' || !strncmp(*input, "./", 2))
@@ -29,7 +30,7 @@ int main(int argc, char *argv[])
 			}
 			else /* ||EXECUTE PHASE|| */
 			{
-				r = execute(cmd, input);
+				r = execute(cmd, input, env);
 				if (r == -1)
 				{
 					freepptr(input), free(cmd);
@@ -38,8 +39,8 @@ int main(int argc, char *argv[])
 			}
 		}
 		else
-		{
-			r = execute(*input, input);
+		{/**inpút = argv[0] = commandpath to execute*/
+			r = execute(*input, input, env);
 			if (r == -1)
 			{
 				freepptr(input);
