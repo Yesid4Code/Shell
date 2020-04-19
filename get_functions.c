@@ -1,18 +1,15 @@
 #include "headershell.h"
 
 /**
- * get_input - get each argument typed for the user
+ * printpromt - prints prompt and eval other option
  *
  * Return: Always 0 success
  */
-char **get_input()
+char *printpromt()
 {
-	char **argstr = NULL, *tokens = NULL, *limstr[4] = {" \t\n\r"};
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read; /*count chars read by getline() */
-	int i = 0;
-	unsigned int sizepptr = 0; /* number of strings typed */
 
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "#cisfun$ ", 9);
@@ -24,11 +21,25 @@ char **get_input()
 			write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS);
 	}
+	return (line);
+}
+
+/**
+ * get_input - get each argument typed for the user
+ * @line: string enter for the user
+ * Return: Always 0 success
+ */
+char **get_input(char *line)
+{
+	char **argstr = NULL, *tokens = NULL, *limstr[4] = {" \a\t\n\r"};
+	unsigned int sizepptr = 0; /* number of strings typed */
+	int i = 0;
+
 	sizepptr = countstrings(line);/*length string typed*/
-	argstr = (char **)malloc(sizeof(char *) * sizepptr);
+	argstr = (char **)malloc(sizeof(char *) * sizepptr);/*hacer _calloc??*/
 	if (!argstr || (sizepptr == 0))
-	{
-		free(argstr), free(line);
+	{/*free(argstr),*/
+		free(line);
 		return (NULL);
 	}
 	tokens = strtok(line, *limstr); /* Tokenization the line typed*/
