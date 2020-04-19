@@ -22,17 +22,13 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
 		/*exists or can exe?*/
 		if ((stat(fullpath, &fpath) == 0))
 		{
-			for (j = i; j >= 0; j--)
-				free(binpath[j]);
-			free(binpath)/*, free(input[0])*/; /*DOBLE MALLOC - POSIBLE CONFLICTO*/
+			freepptr(binpath)/*, free(input[0])*/; /*DOBLE MALLOC - POSIBLE CONFLICTO*/
 			return (fullpath);
 		}
 		i++;
 	}
 	perror(*input);/*Print error message */
-	for (j = i; j >= 0; j--)
-		free(binpath[j]);
-	free(binpath); /*DON'T FREE INPUT*/
+	freepptr(binpath); /*DON'T FREE INPUT*/
 	return (NULL);
 }
 
@@ -40,9 +36,10 @@ char *pathtoexecute(char **input)/* SEARCHING PATH PHASE*/
  * execute - execute the path
  * @input: string to execute + arguments
  * @cmd: command path
+ * @env: array of environment variables
  * Return: Always 0 success
  */
-int execute(char *cmd, char **input)
+int execute(char *cmd, char **input, char **env)
 {
 	pid_t exechild;
 	int status;
@@ -55,7 +52,7 @@ int execute(char *cmd, char **input)
 	}
 	else if (exechild == 0)
 	{
-		return (execve(cmd, input, environ));
+		return (execve(cmd, input, env));
 	}
 	else /* Successful forks return positive process id's the parent */
 		while (wait(&status) != exechild)
