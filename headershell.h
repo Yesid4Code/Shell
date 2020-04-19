@@ -13,11 +13,12 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-char **get_input();
+char *printpromt();
+char **get_input(char *line);
 char **get_path();
 char *get_environ(char *envar);
 char *pathtoexecute(char **input);
-int execute(char *cmd, char **input);
+int execute(char *cmd, char **input, char **env);
 
 void control_c(int c);
 char *_strdup(char *str);
