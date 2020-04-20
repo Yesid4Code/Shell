@@ -1,9 +1,10 @@
 #include "headershell.h"
 
 /**
- * execute - execute the path.
+ * execute - execute the command path
+ * @argv: array of arguments generated from the execution
+ * @fullpath: command path
  * @input: string to execute + arguments.
- * @cmd: command path.
  * @env: array of environment variables.
  * @countexec: number of times program executed.
  *
@@ -37,7 +38,7 @@ int execute(char *argv, char *fullpath,
 		else /* Successful forks return positive process id's the parent */
 			while (wait(&status) != exechild)
 			{}
-	}/* command not found. */
+	} /* command not found. */
 	sprintf(error, "%s: %d: %s: not found\n", argv, countexec, input[0]);
 	write(2, error, _strlen(error));
 	/* free? */

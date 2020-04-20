@@ -61,8 +61,9 @@ char **get_input(char *line)
 }
 
 /**
- * get_environ - search environ
- * @envar: environ
+ * get_path - find the command path to will be execute
+ * @input: command to search the path
+ *
  * Return: Always 0 success
  */
 char *get_path(char *input)

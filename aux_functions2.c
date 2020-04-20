@@ -62,8 +62,11 @@ void freepptr(char **pptr)
 }
 
 /**
- * _memseet
- *
+ * _memset - function that inicializate each character of the string with zero
+ * @str: str
+ * @a: Char to fill the string, a = "0"
+ * @size: lenght of the string
+ * Return: A pointer to string
  */
 char *_memset(char *str, char a, unsigned int size)
 {
@@ -76,7 +79,8 @@ char *_memset(char *str, char a, unsigned int size)
 
 /**
  * _calloc - function that reserved memory and fill it with zeros.
- * @sizeppter: number of strings inside the array line.
+ * @sizepptr: number of strings inside the array line.
+ * @sizetype: type of data
  *
  * Return: array filled with zeros.
  */
@@ -90,5 +94,5 @@ void *_calloc(unsigned int sizepptr, unsigned int sizetype)
 	if (!argline)
 		return (NULL);
 	_memset(argline, 0, (sizepptr * sizetype));
-	return(argline);
+	return (argline);
 }

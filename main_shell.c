@@ -4,7 +4,7 @@
  * main - Read, Search and execute the input
  * @argc: count arguments
  * @argv: array of arguments
- * @environ: array of environment variables
+ * @env: array of environment variables
  *
  * Return: Always 0 success
  */
@@ -34,11 +34,6 @@ int main(int argc, char *argv[], char **env)
 		else
 		{/**inpút = argv[0] = commandpath to execute*/
 			execute(argv[0], *input, input, env, countexec);
-/*			if (r == -1)*/
-/*			{*/
-/*				freepptr(input);*/
-/*				continue;*/
-/*			}*/
 		}
 		freepptr(input);
 		countexec++;
