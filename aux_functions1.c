@@ -27,14 +27,16 @@ char *_strdup(char *str)
 	char *la;
 
 	if (str == '\0')
-		return (0);
+		return (NULL);
+
 	i = _strlen(str) + 1;
 	la = malloc(i * sizeof(char)); /*reserve the space of memory*/
 	if (!la)
 		return (NULL);
+
 	for (j = 0; j < i; j++)
 		la[j] = str[j];
-	/*la[j] = '\0';*/
+
 	return (la);
 }
 
@@ -84,25 +86,16 @@ int countstrings(char *str)
  * str_concat - Function that concatenates two string.
  * @s1: String to concatenate.
  * @s2: String to concatenate.
- * Return: Pointer to an string.
+ * Return: Pointer to the final string.
  */
 char *str_concat(char *s1, char *s2)
 {
-	char *s3 = NULL; /*string complete */
-	int i = 0, j = 0, k = 0, m = 0;
+	int i = 0, j = 0;
 
-	i = _strlen(s1), j = _strlen(s2) + 1;
+	i = _strlen(s1);
 
-	s3 = malloc(sizeof(char) * (i + j));
-	if (!s3)
-		return (NULL);
-
-	for (k = 0;  s1[k] != '\0'; k++)
-		s3[k] = s1[k];
-
-	for (;  s2[m] != '\0'; k++, m++)
-		s3[k] = s2[m];
-
-	s3[k] = '\0';
-	return (s3);
+	for (; s2[j] != '\0'; i++, j++)
+		s1[i] = s2[j];
+	s1[i] = '\0';
+	return (s1);
 }
