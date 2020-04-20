@@ -1,6 +1,6 @@
 .\"Manpage for Simple Shell by Holberton School
 .\"Contact on Twitter to correct errors:
-.\"Crispthofer Rincon [@CrispthoAlex] & Yesid Lopez [@Yesid4Code]
+.\"Crispthofer Rincon [@CrispthoAlex] & Yesid A. López V. [@Yesid4Code]
 .Dd 16/04/20               \" DATE
 .Dt man 1      \" Program name and manual section number
 .Os Ubuntu
@@ -9,13 +9,13 @@
 .Nm simple shell
 - simple command-line interpreter (simple shell)
 .SH SYNOPSIS             \" Section Header - required - don't modify
-.B ./sh: cisfun$_
+.B ./hsh: cisfun$_
 .Op Fl Ar command or command_path              \" []
 .Op Fl Ar command_flags     \" []
 .SH DESCRIPTION
-The hsh is a simple command interpreter that shall execute commands read from a command line string (standard input - type by the user), or a specified file.
+The hsh is a simple command interpreter that should execute commands read from a command line string (standard input - type by the user), or a specified file.
 
-Pathname expansion shall ensure.
+Pathname expansion should ensure.
 
 .SH OPTIONS
 
@@ -97,4 +97,4 @@ This project follows the C coding style for Holberton School. (Betty)
 Someone on way
 
 .SH AUTHOR
-Crispthofer Rincon Murrain, Yesid A. Lopez
+Crispthofer Rincon Murrain, Yesid A. López V.
