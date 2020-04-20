@@ -18,8 +18,7 @@ char **get_input(char *line);
 char *get_path(char *input);
 char *get_environ(char *envar);
 char *pathtoexecute(char **input);
-int execute(char *argv, char *fullpath,
-	    char **input, char **env, unsigned int countexec);
+int execute(char *argv, char *fullpath, char **input, char **env, unsigned int countexec);
 
 void control_c(int c);
 char *_strdup(char *str);
