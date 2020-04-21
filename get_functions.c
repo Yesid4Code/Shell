@@ -84,12 +84,12 @@ char *get_path(char *input)
 		{
 			fullpath = malloc(sizeof(char *) *
 					  (_strlen(tok) + _strlen(input) + 1));
-			_memset(fullpath, 0, _strlen(fullpath));
 			if (fullpath == NULL)
 			{
 				free(copy_env);
 				return (NULL);
-			}
+			} /* inicializate each position char "0" */
+			_memset(fullpath, 0, ((_strlen(tok) + _strlen(input) + 1)));
 			/* Getting the complete path */
 			_copy(fullpath, tok);
 			str_concat(fullpath, "/");

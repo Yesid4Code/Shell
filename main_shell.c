@@ -39,7 +39,7 @@ int main(int argc, char *argv[], char **env)
 			}
 		}
 		else
-		{/**inpút = argv[0] = commandpath to execute*/
+		{
 			execute(argv[0], *input, input, env, countexec);
 		}
 		freepptr(input);
