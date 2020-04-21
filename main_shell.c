@@ -11,6 +11,7 @@
 int main(int argc, char *argv[], char **env)
 {
 	char **input = NULL, *fullpath = NULL; /* command & pathcommand */
+	char error[100];/* error msg*/
 	int countexec = 1; /* check if the execute was successfull */
 
 	(void)argc, (void)argv, signal(SIGINT, control_c); /* read ctrl + C */
@@ -29,6 +30,12 @@ int main(int argc, char *argv[], char **env)
 			{
 				execute(argv[0], fullpath,
 					input, env, countexec);
+			}
+			else
+			{
+				sprintf(error, "%s: %d: %s: not found\n",
+					argv[0], countexec, input[0]);
+				write(2, error, _strlen(error));
 			}
 		}
 		else
