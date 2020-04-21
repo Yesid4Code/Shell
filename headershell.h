@@ -31,5 +31,5 @@ void freepptr(char **pptr);
 void *_calloc(unsigned int sizepptr, unsigned int sizetype);
 char *_copy(char *dest, char *src);
 char *_memset(char *str, char a, unsigned int size);
-
+void _printenv();
 #endif /* END HEADERSHELL */
