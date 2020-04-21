@@ -19,7 +19,7 @@ char *printpromt()
 		free(line);
 		if ((read == EOF) && isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "\n", 1);
-		exit(2);
+		exit(127);
 	}
 	return (line);
 }
