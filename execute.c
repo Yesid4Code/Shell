@@ -24,9 +24,7 @@ int execute(char *argv, char *fullpath,
 		if (exechild < 0) /*Not create a child procces */
 		{	/*PRINT VALUE FORK()*/
 			freepptr(input); /*add frees*/
-			/*return (127);*/
-			/*return (exechild);  exit(EXIT_FAILURE); */
-			exit(1);
+			return (127);
 		}
 		else if (exechild == 0)
 		{
