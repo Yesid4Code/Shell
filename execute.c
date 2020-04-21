@@ -36,7 +36,7 @@ int execute(char *argv, char *fullpath,
 					argv, countexec, input[0]);
 				write(2, error, _strlen(error));
 				freepptr(input);
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else /* Successful forks return positive process id's the parent */
