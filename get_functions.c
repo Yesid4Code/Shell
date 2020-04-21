@@ -21,11 +21,6 @@ char *printpromt()
 			write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS); /* EXIT_SUCCESS || 2 */
 	}
-	if (_strncmp(line, "env", 3))
-	{
-		_printenv(), free(line);
-		return (NULL);
-	}
 	return (line);
 }
 
