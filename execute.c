@@ -23,7 +23,8 @@ int execute(char *argv, char *fullpath,
 		exechild = fork();
 		if (exechild < 0) /*Not create a child procces */
 		{	/*PRINT VALUE FORK()*/
-			exit(2);
+			freepptr(input); /*add frees*/
+			return (127);
 			/*return (exechild);  exit(EXIT_FAILURE); */
 		}
 		else if (exechild == 0)
@@ -33,14 +34,20 @@ int execute(char *argv, char *fullpath,
 				sprintf(error, "%s: %d: %s: not found\n",
 					argv, countexec, input[0]);
 				write(2, error, _strlen(error));
+				freepptr(input);
+				exit(2);
 			}
 		}
 		else /* Successful forks return positive process id's the parent */
 			while (wait(&status) != exechild)
 			{}
 	} /* command not found. */
-	sprintf(error, "%s: %d: %s: not found\n", argv, countexec, input[0]);
-	write(2, error, _strlen(error));
-	/* free? */
-	return (-1);/* return (127) ?? */
+	else /* add this else */
+	{
+		sprintf(error, "%s: %d: %s: not found\n", argv, countexec, input[0]);
+		write(2, error, _strlen(error));
+		freepptr(input);
+		return (-1);/* return (127) ?? */
+	} /*add this return*/
+	return (0);
 }
