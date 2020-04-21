@@ -24,8 +24,9 @@ int execute(char *argv, char *fullpath,
 		if (exechild < 0) /*Not create a child procces */
 		{	/*PRINT VALUE FORK()*/
 			freepptr(input); /*add frees*/
-			return (127);
+			/*return (127);*/
 			/*return (exechild);  exit(EXIT_FAILURE); */
+			exit(1);
 		}
 		else if (exechild == 0)
 		{
@@ -35,7 +36,7 @@ int execute(char *argv, char *fullpath,
 					argv, countexec, input[0]);
 				write(2, error, _strlen(error));
 				freepptr(input);
-				exit(0);
+				exit(1);
 			}
 		}
 		else /* Successful forks return positive process id's the parent */
