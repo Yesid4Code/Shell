@@ -73,7 +73,7 @@ char *get_path(char *input)
 	char *copy_env = NULL, *tok = NULL, *fullpath = NULL;
 	struct stat fpath;
 
-	while (/*environ && */environ[i]) /*environ is a pointer function??*/
+	while (environ && environ[i]) /*environ is a pointer function??*/
 	{
 		copy_env = _strdup(environ[i]); /* ENVIRON */
 		if (copy_env == NULL)

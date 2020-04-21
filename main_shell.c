@@ -30,6 +30,7 @@ int main(int argc, char *argv[], char **env)
 			{
 				execute(argv[0], fullpath,
 					input, env, countexec);
+				free(fullpath);
 			}
 			else
 			{
