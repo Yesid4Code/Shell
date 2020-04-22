@@ -34,7 +34,7 @@ int execute(char *argv, char *fullpath,
 					argv, countexec, input[0]);
 				write(2, error, _strlen(error));
 				freepptr(input);
-				exit(127);
+				exit(2);
 			}
 		}
 		else /* Successful forks return positive process id's the parent */
@@ -46,7 +46,7 @@ int execute(char *argv, char *fullpath,
 		sprintf(error, "%s: %d: %s: not found\n", argv, countexec, input[0]);
 		write(2, error, _strlen(error));
 		freepptr(input);
-		return (2);
+		return (127);
 	} /*add this return*/
 	return (0);
 }
