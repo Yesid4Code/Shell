@@ -36,6 +36,11 @@ char **get_input(char *line)
 	int i = 0;
 
 	sizepptr = countstrings(line);/*length string typed*/
+	if (sizepptr == 0)
+	{
+		free(line);
+		return (NULL);
+	}
 	argline = _calloc((sizepptr + 2), sizeof(char *));
 	if (!argline || !sizepptr)
 	{
@@ -73,38 +78,40 @@ char *get_path(char *input)
 	char *copy_env = NULL, *tok = NULL, *fullpath = NULL;
 	struct stat fpath;
 
-	while (environ && environ[i]) /*environ is a pointer function??*/
+	if (input != NULL)
 	{
-		copy_env = _strdup(environ[i]); /* ENVIRON */
-		if (copy_env == NULL)
-			return (NULL);
-		tok = strtok(copy_env, *delim); /* Tokenization of copy_env */
-		/* reserve memory to concatenate tok+/+argline[0] */
-		while (tok != NULL)
+		while (environ && environ[i]) /*environ is a pointer function??*/
 		{
-			fullpath = malloc(sizeof(char *) *
-					  (_strlen(tok) + _strlen(input) + 1));
-			if (fullpath == NULL)
-			{
-				free(copy_env);
+			copy_env = _strdup(environ[i]); /* ENVIRON */
+			if (copy_env == NULL)
 				return (NULL);
-			} /* inicializate each position char "0" */
-			_memset(fullpath, 0, ((_strlen(tok) + _strlen(input) + 1)));
-			/* Getting the complete path */
-			_copy(fullpath, tok);
-			str_concat(fullpath, "/");
-			str_concat(fullpath, input);
-			if (stat(fullpath, &fpath) == 0)
+			tok = strtok(copy_env, *delim); /* Tokenization of copy_env */
+			/* reserve memory to concatenate tok+/+argline[0] */
+			while (tok != NULL)
 			{
-				free(copy_env);
-				return (fullpath);
+				fullpath = malloc(sizeof(char *) *
+						  (_strlen(tok) + _strlen(input) + 1));
+				if (fullpath == NULL)
+				{
+					free(copy_env);
+					return (NULL);
+				} /* inicializate each position char "0" */
+				_memset(fullpath, 0, ((_strlen(tok) + _strlen(input) + 1)));
+				/* Getting the complete path */
+				_copy(fullpath, tok);
+				str_concat(fullpath, "/");
+				str_concat(fullpath, input);
+				if (stat(fullpath, &fpath) == 0)
+				{
+					free(copy_env);
+					return (fullpath);
+				}
+				/*_memset(fullpath, 0, _strlen(fullpath));*/
+				free(fullpath);
+				tok = strtok(NULL, *delim);
 			}
-			/*_memset(fullpath, 0, _strlen(fullpath));*/
-			free(fullpath);
-			tok = strtok(NULL, *delim);
+			free(copy_env), i++;
 		}
-		free(copy_env);
-		i++;
 	}
 	return (NULL);
 }

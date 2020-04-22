@@ -46,7 +46,7 @@ int execute(char *argv, char *fullpath,
 		sprintf(error, "%s: %d: %s: not found\n", argv, countexec, input[0]);
 		write(2, error, _strlen(error));
 		freepptr(input);
-		return (-1);/* return (127) ?? */
+		return (127);
 	} /*add this return*/
 	return (0);
 }
