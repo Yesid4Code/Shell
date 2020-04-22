@@ -31,12 +31,14 @@ int main(int argc, char *argv[], char **env)
 				execute(argv[0], fullpath,
 					input, env, countexec);
 				free(fullpath);
+				return (0);
 			}
 			else
 			{
 				sprintf(error, "%s: %d: %s: not found\n",
 					argv[0], countexec, input[0]);
 				write(2, error, _strlen(error));
+				return (127);
 			}
 		}
 		else

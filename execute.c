@@ -48,5 +48,5 @@ int execute(char *argv, char *fullpath,
 		freepptr(input);
 		return (127);
 	} /*add this return*/
-	return (0);
+	return (127);
 }
