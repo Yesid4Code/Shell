@@ -78,7 +78,7 @@ char *get_path(char *input)
 	char *copy_env = NULL, *tok = NULL, *fullpath = NULL;
 	struct stat fpath;
 
-	if (input != NULL)
+	if (input != NULL || !environ)
 	{
 		while (environ && environ[i]) /*environ is a pointer function??*/
 		{
